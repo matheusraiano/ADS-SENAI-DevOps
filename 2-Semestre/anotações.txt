@@ -112,6 +112,11 @@ Aula(18-08-2026):
                     git push
                 - Envia os commits locais para o repositório remoto.
 
+            12. Enviar alterações para o PC do GitHub:
+                - Comando:
+                    git pull
+                - Envia os commits do repositório remoto para o repositório local.
+
         - Fluxo básico para atualizar um projeto:
             1. Verificar o estado:
                 git status
@@ -121,6 +126,8 @@ Aula(18-08-2026):
                 git commit -m "Descrição da alteração"
             4. Enviar para o GitHub:
                 git push
+            5. Enviar para o PC:
+                git pull
 
         - Resumo dos principais comandos:
             - git init → inicializa o Git.
