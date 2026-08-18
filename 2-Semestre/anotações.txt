@@ -1,31 +1,32 @@
 Aula(18-08-2026):
     README.md:
-        - É a principal porta de entrada de um projeto no GitHub.
-        - Apresenta o projeto e ajuda novos usuários e contribuidores a entendê-lo.
-        - Facilita o onboarding e reduz a confusão, o abandono e a baixa adoção.
-        - Um README eficaz deve conter:
-            1. Título e descrição — nome do projeto e seu propósito em 1-2 linhas.
-            2. Badges — status, versão, licença, build etc.
-            3. Requisitos — dependências e versões necessárias.
-            4. Instalação — passos para configurar o projeto.
-            5. Como usar — Quick Start e exemplos.
-            6. Estrutura — organização de diretórios e arquivos.
-            7. Contribuindo — orientações para contribuidores e código de conduta.
-            8. Licença — tipo de licença e direitos autorais.
-        - Ferramentas úteis:
-            - README.so
-            - Make a README
-            - GitHub Profile README Generator
-            - Atividade:
-                - Escolher um projeto existente no GitHub.
-                - Criar um README.md contendo:
-                    - Linguagem utilizada:
-                        Frontend / Backend.
-                    - Banco de dados.
-                    - Framework utilizado.
-                    - Como instalar/executar o projeto no notebook.
-                    - Informações de licença.
-                    - Informações de copyright.
+    - É a principal porta de entrada de um projeto no GitHub.
+    - Apresenta o projeto e ajuda novos usuários e contribuidores a entendê-lo.
+    - Facilita o onboarding e reduz a confusão, o abandono e a baixa adoção.
+    - Um README eficaz deve conter:
+    1. Título e descrição — nome do projeto e seu propósito em 1-2 linhas.
+    2. Badges — status, versão, licença, build etc.
+    3. Requisitos — dependências e versões necessárias.
+    4. Instalação — passos para configurar o projeto.
+    5. Como usar — Quick Start e exemplos.
+    6. Estrutura — organização de diretórios e arquivos.
+    7. Contribuindo — orientações para contribuidores e código de conduta.
+    8. Licença — tipo de licença e direitos autorais.
+    - Ferramentas úteis:
+    - README.so
+    - Make a README
+    - GitHub Profile README Generator
+    - Atividade:
+    - Escolher um projeto existente no GitHub.
+    - Criar um README.md contendo:
+    - Linguagem utilizada:
+    Frontend / Backend.
+    - Banco de dados.
+    - Framework utilizado.
+    - Como instalar/executar o projeto no notebook.
+    - Informações de licença.
+    - Informações de copyright.
+
     Pull Request Templates:
         - Servem para padronizar os Pull Requests de um projeto.
         - Todos os PRs seguem uma estrutura semelhante.
@@ -45,3 +46,88 @@ Aula(18-08-2026):
             - [ ] Código testado localmente.
             - [ ] Testes passando.
             - [ ] Documentação atualizada.
+
+    Git:
+        - Git é um sistema de controle de versão utilizado para acompanhar alterações em arquivos e projetos.
+        - Permite criar commits, voltar para versões anteriores e trabalhar com outras pessoas.
+        - O GitHub é uma plataforma utilizada para armazenar e compartilhar repositórios Git.
+
+        - Comandos utilizados:
+
+            1. Criar/atualizar o README.md:
+                - Comando:
+                    echo "# ADS-SENAI-DevOps" >> README.md
+                - Adiciona o texto "# ADS-SENAI-DevOps" ao arquivo README.md.
+
+            2. Inicializar um repositório:
+                - Comando:
+                    git init
+                - Inicializa um repositório Git na pasta atual.
+
+            3. Adicionar um arquivo ao staging:
+                - Comando:
+                    git add README.md
+                - Adiciona o README.md à área de preparação (staging).
+
+            4. Criar um commit:
+                - Comando:
+                    git commit -m "first commit"
+                - Cria um commit com uma mensagem descrevendo a alteração.
+
+            5. Renomear a branch:
+                - Comando:
+                    git branch -M main
+                - Renomeia a branch atual para main.
+
+            6. Adicionar um repositório remoto:
+                - Comando:
+                    git remote add origin https://github.com/matheusraiano/ADS-SENAI-DevOps.git
+                - Conecta o repositório local a um repositório remoto no GitHub.
+                - origin é o nome padrão utilizado para identificar o repositório remoto.
+                - Se aparecer "remote origin already exists", significa que o repositório remoto já foi configurado.
+
+            7. Enviar o projeto para o GitHub:
+                - Comando:
+                    git push -u origin main
+                - Envia a branch main para o repositório remoto.
+                - O parâmetro -u estabelece a ligação entre a branch local e a branch remota.
+
+            8. Adicionar todas as alterações:
+                - Comando:
+                    git add .
+                - Adiciona todos os arquivos novos e modificados ao staging.
+
+            9. Verificar o estado do repositório:
+                - Comando:
+                    git status
+                - Mostra arquivos modificados, arquivos novos, alterações no staging e a branch atual.
+
+            10. Criar um novo commit:
+                - Comando:
+                    git commit -m "Atualizado"
+                - Salva as alterações adicionadas ao staging em um novo commit.
+
+            11. Enviar alterações para o GitHub:
+                - Comando:
+                    git push
+                - Envia os commits locais para o repositório remoto.
+
+        - Fluxo básico para atualizar um projeto:
+            1. Verificar o estado:
+                git status
+            2. Adicionar as alterações:
+                git add .
+            3. Criar um commit:
+                git commit -m "Descrição da alteração"
+            4. Enviar para o GitHub:
+                git push
+
+        - Resumo dos principais comandos:
+            - git init → inicializa o Git.
+            - git status → verifica o estado do repositório.
+            - git add . → adiciona alterações ao staging.
+            - git commit -m "mensagem" → cria um commit.
+            - git push → envia alterações para o GitHub.
+            - git pull → baixa alterações do repositório remoto.
+            - git branch -M main → define o nome da branch como main.
+            - git remote add origin → conecta o projeto ao repositório remoto.
