@@ -1,0 +1,47 @@
+Aula(18-08-2026):
+    README.md:
+        - É a principal porta de entrada de um projeto no GitHub.
+        - Apresenta o projeto e ajuda novos usuários e contribuidores a entendê-lo.
+        - Facilita o onboarding e reduz a confusão, o abandono e a baixa adoção.
+        - Um README eficaz deve conter:
+            1. Título e descrição — nome do projeto e seu propósito em 1-2 linhas.
+            2. Badges — status, versão, licença, build etc.
+            3. Requisitos — dependências e versões necessárias.
+            4. Instalação — passos para configurar o projeto.
+            5. Como usar — Quick Start e exemplos.
+            6. Estrutura — organização de diretórios e arquivos.
+            7. Contribuindo — orientações para contribuidores e código de conduta.
+            8. Licença — tipo de licença e direitos autorais.
+        - Ferramentas úteis:
+            - README.so
+            - Make a README
+            - GitHub Profile README Generator
+            - Atividade:
+                - Escolher um projeto existente no GitHub.
+                - Criar um README.md contendo:
+                    - Linguagem utilizada:
+                        Frontend / Backend.
+                    - Banco de dados.
+                    - Framework utilizado.
+                    - Como instalar/executar o projeto no notebook.
+                    - Informações de licença.
+                    - Informações de copyright.
+    Pull Request Templates:
+        - Servem para padronizar os Pull Requests de um projeto.
+        - Todos os PRs seguem uma estrutura semelhante.
+        - Possuem checklist para lembrar tarefas importantes antes do envio.
+        - Mantêm informações essenciais e contexto consistente.
+        - Reduzem perguntas repetitivas durante o code review.
+        - O arquivo normalmente fica em:
+            - .github/pull_request_template.md
+        - Estrutura recomendada:
+            1. Descrição — explicar claramente o que foi alterado e por quê.
+            2. Tipo de mudança — feat, fix, refactor, docs, style ou test.
+            3. Como testar — informar os passos para validar a alteração.
+            4. Checklist — confirmar testes, documentação e outras validações.
+            5. Screenshots/GIFs — evidências visuais quando necessário.
+            6. Referências — issues, PRs ou documentação relacionada.
+        - Exemplo de checklist:
+            - [ ] Código testado localmente.
+            - [ ] Testes passando.
+            - [ ] Documentação atualizada.
