@@ -12,20 +12,20 @@ Aula(18-08-2026):
     6. Estrutura — organização de diretórios e arquivos.
     7. Contribuindo — orientações para contribuidores e código de conduta.
     8. Licença — tipo de licença e direitos autorais.
-    - Ferramentas úteis:
-    - README.so
-    - Make a README
-    - GitHub Profile README Generator
-    - Atividade:
-    - Escolher um projeto existente no GitHub.
+        - Ferramentas úteis:
+            - README.so
+            - Make a README
+            - GitHub Profile README Generator
+            - Atividade:
+            - Escolher um projeto existente no GitHub.
     - Criar um README.md contendo:
-    - Linguagem utilizada:
-    Frontend / Backend.
-    - Banco de dados.
-    - Framework utilizado.
-    - Como instalar/executar o projeto no notebook.
-    - Informações de licença.
-    - Informações de copyright.
+        - Linguagem utilizada:
+            Frontend / Backend.
+        - Banco de dados.
+        - Framework utilizado.
+        - Como instalar/executar o projeto no notebook.
+        - Informações de licença.
+        - Informações de copyright.
 
     Pull Request Templates:
         - Servem para padronizar os Pull Requests de um projeto.
@@ -138,3 +138,19 @@ Aula(18-08-2026):
             - git pull → baixa alterações do repositório remoto.
             - git branch -M main → define o nome da branch como main.
             - git remote add origin → conecta o projeto ao repositório remoto.
+Aula(01-09-2026):
+    Usando docker, comandos:
+        - docker ps -> lista os containers que funcionam
+        - docker ps -a -> lista todos os containers
+        - docker run 'nome' -> cria o container da imagem colocada
+        - docker run --name 'zequinha' -it -d 'nome' bash -> 
+        - docker rm 'zequinha' -> tira o container 
+        - docker exec -it 'zequinha' bash -> enra dentro da maquina com name zequinha para dar comandos
+        - docker start 'zequinha' -> encerra o container
+        - docker stop 'zequinha' -> inicia o container
+        - docker images -> lista as imagens na maquina
+        - docker pull 'nome' -> baixa a imagem
+        - docker pull nginx -> cria uma imagem para aplicação web
+        - docker run --name meuWeb -p 9090:80 -d nginx -> coloca ativo na web o servidor com porta aberta
+    https://hub.docker.com/
+    https://app.docker.com/
