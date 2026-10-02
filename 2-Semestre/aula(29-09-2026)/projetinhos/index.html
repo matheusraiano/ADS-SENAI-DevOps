@@ -1,0 +1,6163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="Garage Project — catálogo de carros clássicos, JDM, europeus e projetos automotivos.">
+<meta name="theme-color" content="#08090b">
+
+<title>GARAGE PROJECT — Automotive Builds - Melhores</title>
+
+<style>
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#07090b;
+    color:#f4f4f4;
+    overflow-x:hidden;
+}
+
+body.modal-open{
+    overflow:hidden;
+}
+
+img{
+    display:block;
+    max-width:100%;
+}
+
+button,
+input,
+select,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+ul{
+    list-style:none;
+}
+
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+
+:root{
+    --red:#e10600;
+    --red-light:#ff251e;
+    --red-dark:#a80000;
+
+    --orange:#ff6b00;
+
+    --black:#07090b;
+    --dark:#101318;
+    --dark-2:#151920;
+    --dark-3:#1c2129;
+
+    --gray:#8e949d;
+    --gray-light:#b8bdc5;
+
+    --white:#fff;
+
+    --border:rgba(255,255,255,.08);
+    --border-light:rgba(255,255,255,.14);
+
+    --shadow:0 25px 70px rgba(0,0,0,.45);
+
+    --radius:2px;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar{
+    width:9px;
+}
+
+::-webkit-scrollbar-track{
+    background:#060708;
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--red);
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:var(--red-light);
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.page-loader{
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    background:#060708;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.5s;
+}
+
+.page-loader.hidden{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.loader-box{
+    text-align:center;
+}
+
+.loader-logo{
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:5px;
+}
+
+.loader-logo span{
+    color:var(--red);
+}
+
+.loader-line{
+    width:180px;
+    height:2px;
+    background:#222;
+    margin:20px auto 0;
+    overflow:hidden;
+}
+
+.loader-line::after{
+    content:"";
+    display:block;
+    height:100%;
+    width:50%;
+    background:var(--red);
+    animation:loading 1s infinite;
+}
+
+@keyframes loading{
+    0%{transform:translateX(-100%)}
+    100%{transform:translateX(300%)}
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:76px;
+    z-index:5000;
+
+    background:rgba(7,9,11,.76);
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid var(--border);
+
+    transition:.3s;
+}
+
+header.scrolled{
+    background:rgba(7,9,11,.97);
+    box-shadow:0 10px 40px rgba(0,0,0,.45);
+}
+
+.nav{
+    width:min(1250px,100%);
+    height:100%;
+    margin:auto;
+    padding:0 22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:3px;
+    white-space:nowrap;
+}
+
+.logo span{
+    color:var(--red);
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:27px;
+}
+
+.nav-links a{
+    color:#ccc;
+    font-size:11px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    transition:.2s;
+}
+
+.nav-links a:hover{
+    color:var(--red);
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.favorite-counter{
+    position:relative;
+
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#101318;
+    border:1px solid var(--border);
+    color:#fff;
+
+    font-size:18px;
+}
+
+.favorite-counter span{
+    position:absolute;
+    right:-5px;
+    top:-5px;
+
+    width:17px;
+    height:17px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+    background:var(--red);
+
+    font-size:9px;
+    font-weight:bold;
+}
+
+.menu-btn{
+    display:none;
+
+    width:42px;
+    height:42px;
+
+    border:1px solid var(--border);
+    background:#101318;
+    color:white;
+
+    font-size:22px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:100vh;
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(3,5,7,.98) 0%,
+            rgba(3,5,7,.90) 35%,
+            rgba(3,5,7,.35) 72%,
+            rgba(3,5,7,.80) 100%
+        ),
+        url("https://commons.wikimedia.org/wiki/Special:Redirect/file/1999_Mitsubishi_Lancer_Evolution_VI_3.jpg")
+        center/cover;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at 75% 35%,
+            rgba(225,6,0,.14),
+            transparent 30%
+        );
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent 55%,
+            var(--black) 100%
+        );
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+
+    width:min(1250px,100%);
+    margin:auto;
+
+    padding:150px 22px 80px;
+}
+
+.hero-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    padding:9px 14px;
+
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(12px);
+
+    font-size:10px;
+    font-weight:bold;
+    text-transform:uppercase;
+    letter-spacing:3px;
+}
+
+.hero-tag::before{
+    content:"";
+
+    width:7px;
+    height:7px;
+
+    background:var(--red);
+    border-radius:50%;
+
+    box-shadow:0 0 18px var(--red);
+}
+
+.hero h1{
+    margin-top:22px;
+
+    max-width:900px;
+
+    font-size:clamp(58px,9vw,120px);
+    line-height:.84;
+
+    font-weight:900;
+
+    text-transform:uppercase;
+    letter-spacing:-6px;
+}
+
+.hero h1 span{
+    color:var(--red);
+}
+
+.hero-description{
+    max-width:610px;
+
+    margin-top:32px;
+
+    color:#aaa;
+    font-size:16px;
+    line-height:1.75;
+}
+
+.hero-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+
+    margin-top:35px;
+}
+
+.btn{
+    min-height:50px;
+    padding:0 25px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid transparent;
+
+    font-size:10px;
+    font-weight:900;
+
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+
+    transition:.25s;
+}
+
+.btn-primary{
+    background:var(--red);
+    color:#fff;
+}
+
+.btn-primary:hover{
+    background:var(--red-light);
+    transform:translateY(-3px);
+    box-shadow:0 12px 35px rgba(225,6,0,.3);
+}
+
+.btn-outline{
+    border-color:rgba(255,255,255,.2);
+    background:rgba(255,255,255,.03);
+}
+
+.btn-outline:hover{
+    border-color:#fff;
+    transform:translateY(-3px);
+}
+
+.hero-stats{
+    display:flex;
+    gap:50px;
+
+    margin-top:70px;
+}
+
+.stat strong{
+    display:block;
+
+    font-size:30px;
+    font-weight:900;
+}
+
+.stat span{
+    display:block;
+
+    margin-top:5px;
+
+    color:#777;
+
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section{
+    padding:115px 22px;
+}
+
+.container{
+    width:min(1250px,100%);
+    margin:auto;
+}
+
+.section-header{
+    margin-bottom:42px;
+}
+
+.eyebrow{
+    margin-bottom:12px;
+
+    color:var(--red);
+
+    font-size:10px;
+    font-weight:900;
+
+    text-transform:uppercase;
+    letter-spacing:3px;
+}
+
+.section-title{
+    font-size:clamp(34px,5vw,62px);
+    line-height:.92;
+
+    text-transform:uppercase;
+    letter-spacing:-3px;
+}
+
+.section-subtitle{
+    max-width:700px;
+
+    margin-top:20px;
+
+    color:#858b94;
+
+    line-height:1.75;
+}
+
+
+/* =========================================================
+   CATALOG
+========================================================= */
+
+#catalogo{
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(225,6,0,.06),
+            transparent 28%
+        ),
+        var(--black);
+}
+
+.catalog-toolbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+
+    margin-bottom:25px;
+
+    flex-wrap:wrap;
+}
+
+.filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.filter{
+    padding:12px 16px;
+
+    border:1px solid var(--border);
+
+    background:var(--dark);
+
+    color:#999;
+
+    font-size:9px;
+    font-weight:900;
+
+    text-transform:uppercase;
+    letter-spacing:1px;
+
+    transition:.2s;
+}
+
+.filter:hover,
+.filter.active{
+    color:#fff;
+    background:var(--red);
+    border-color:var(--red);
+}
+
+.catalog-controls{
+    display:flex;
+    gap:8px;
+}
+
+.search-box{
+    position:relative;
+}
+
+.search-box input{
+    width:240px;
+    height:43px;
+
+    padding:0 14px 0 38px;
+
+    color:#fff;
+
+    background:#101318;
+    border:1px solid var(--border);
+
+    outline:none;
+}
+
+.search-box input:focus{
+    border-color:var(--red);
+}
+
+.search-icon{
+    position:absolute;
+    left:13px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#777;
+}
+
+.sort-select{
+    height:43px;
+
+    padding:0 35px 0 12px;
+
+    background:#101318;
+    border:1px solid var(--border);
+
+    color:#aaa;
+
+    outline:none;
+}
+
+.catalog-info{
+    margin-bottom:22px;
+
+    color:#666;
+
+    font-size:11px;
+}
+
+.cars-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.car-card{
+    position:relative;
+    overflow:hidden;
+
+    background:var(--dark);
+    border:1px solid var(--border);
+
+    transition:.3s;
+}
+
+.car-card:hover{
+    transform:translateY(-7px);
+    border-color:rgba(225,6,0,.5);
+    box-shadow:var(--shadow);
+}
+
+.car-card.hidden{
+    display:none;
+}
+
+.car-image{
+    height:235px;
+    position:relative;
+    overflow:hidden;
+
+    background:#080a0c;
+}
+
+.car-image img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.6s;
+}
+
+.car-card:hover .car-image img{
+    transform:scale(1.06);
+}
+
+.car-image::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0,0,0,.35)
+    );
+
+    pointer-events:none;
+}
+
+.car-badge{
+    position:absolute;
+    left:14px;
+    top:14px;
+
+    z-index:2;
+
+    padding:7px 10px;
+
+    background:var(--red);
+
+    font-size:8px;
+    font-weight:900;
+
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.favorite-btn{
+    position:absolute;
+    right:13px;
+    top:13px;
+
+    z-index:5;
+
+    width:36px;
+    height:36px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(0,0,0,.55);
+
+    color:#fff;
+
+    font-size:17px;
+}
+
+.favorite-btn.active{
+    color:#ff332c;
+}
+
+.car-info{
+    padding:21px;
+}
+
+.car-brand{
+    color:var(--red);
+
+    font-size:9px;
+    font-weight:900;
+
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+.car-name{
+    margin-top:6px;
+
+    font-size:22px;
+    line-height:1;
+
+    font-weight:900;
+}
+
+.car-year{
+    margin-top:7px;
+
+    color:#777;
+
+    font-size:10px;
+}
+
+.car-specs{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+
+    margin:18px 0;
+
+    padding:15px 0;
+
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+}
+
+.spec{
+    color:#777;
+
+    font-size:8px;
+
+    text-transform:uppercase;
+}
+
+.spec strong{
+    display:block;
+
+    margin-top:5px;
+
+    color:#eee;
+
+    font-size:12px;
+}
+
+.card-footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.price{
+    font-size:16px;
+    font-weight:900;
+}
+
+.details-btn{
+    border:0;
+    background:transparent;
+
+    color:var(--red);
+
+    font-size:9px;
+    font-weight:900;
+
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.details-btn:hover{
+    color:#fff;
+}
+
+.compare-check{
+    margin-top:15px;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:#777;
+
+    font-size:9px;
+    text-transform:uppercase;
+}
+
+.compare-check input{
+    accent-color:var(--red);
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-state{
+    display:none;
+
+    padding:60px 20px;
+
+    text-align:center;
+
+    border:1px solid var(--border);
+    background:var(--dark);
+}
+
+.empty-state.show{
+    display:block;
+}
+
+.empty-state h3{
+    font-size:22px;
+    text-transform:uppercase;
+}
+
+.empty-state p{
+    margin-top:10px;
+    color:#777;
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats-section{
+    padding-top:0;
+    background:var(--black);
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+
+    border:1px solid var(--border);
+}
+
+.stat-box{
+    padding:35px 25px;
+
+    background:#0d1014;
+
+    border-right:1px solid var(--border);
+}
+
+.stat-box:last-child{
+    border-right:0;
+}
+
+.stat-box strong{
+    display:block;
+
+    color:#fff;
+
+    font-size:38px;
+    font-weight:900;
+}
+
+.stat-box span{
+    display:block;
+
+    margin-top:8px;
+
+    color:#777;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+
+/* =========================================================
+   FEATURED PROJECT
+========================================================= */
+
+.featured{
+    background:#0b0e12;
+}
+
+.featured-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+
+    min-height:600px;
+
+    border:1px solid var(--border);
+
+    background:var(--dark);
+}
+
+.featured-image{
+    position:relative;
+    min-height:550px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 55%,
+            rgba(16,19,24,.4)
+        ),
+        url("https://commons.wikimedia.org/wiki/Special:Redirect/file/1988_Mitsubishi_Galant_VR-4_(22167858678).jpg")
+        center/cover;
+}
+
+.featured-image::after{
+    content:"PROJECT #001";
+
+    position:absolute;
+    left:25px;
+    bottom:25px;
+
+    padding:9px 12px;
+
+    background:var(--red);
+
+    font-size:9px;
+    font-weight:900;
+
+    letter-spacing:2px;
+}
+
+.featured-content{
+    padding:60px;
+
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+}
+
+.featured-content h3{
+    font-size:clamp(40px,5vw,68px);
+    line-height:.86;
+
+    text-transform:uppercase;
+}
+
+.featured-content h3 span{
+    color:var(--red);
+}
+
+.featured-content p{
+    margin:25px 0;
+
+    color:#858b94;
+
+    line-height:1.8;
+}
+
+.build-list{
+    margin-bottom:30px;
+}
+
+.build-list li{
+    padding:11px 0;
+
+    border-bottom:1px solid var(--border);
+
+    color:#bbb;
+
+    font-size:12px;
+}
+
+.build-list li::before{
+    content:"✓";
+
+    margin-right:10px;
+
+    color:var(--red);
+    font-weight:bold;
+}
+
+
+/* =========================================================
+   PROCESS
+========================================================= */
+
+.process{
+    background:var(--black);
+}
+
+.steps{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.step{
+    min-height:220px;
+
+    padding:28px;
+
+    border:1px solid var(--border);
+    background:var(--dark);
+
+    transition:.3s;
+}
+
+.step:hover{
+    border-color:rgba(225,6,0,.35);
+    transform:translateY(-5px);
+}
+
+.step-number{
+    color:rgba(225,6,0,.22);
+
+    font-size:45px;
+    font-weight:900;
+}
+
+.step h3{
+    margin-top:10px;
+
+    font-size:17px;
+
+    text-transform:uppercase;
+}
+
+.step p{
+    margin-top:12px;
+
+    color:#777;
+
+    font-size:12px;
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   COMPARISON
+========================================================= */
+
+.compare-section{
+    background:#0b0e12;
+}
+
+.compare-box{
+    border:1px solid var(--border);
+    background:var(--dark);
+
+    overflow:hidden;
+}
+
+.compare-empty{
+    padding:50px 20px;
+
+    color:#777;
+
+    text-align:center;
+}
+
+.compare-table{
+    width:100%;
+    border-collapse:collapse;
+    display:none;
+}
+
+.compare-table.show{
+    display:table;
+}
+
+.compare-table th,
+.compare-table td{
+    padding:18px;
+
+    border-bottom:1px solid var(--border);
+
+    text-align:left;
+}
+
+.compare-table th{
+    color:#777;
+
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.compare-table td{
+    font-size:13px;
+}
+
+.compare-table tr:last-child td{
+    border-bottom:0;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery-section{
+    background:var(--black);
+}
+
+.gallery{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+    grid-auto-rows:220px;
+
+    gap:10px;
+}
+
+.gallery-item{
+    position:relative;
+    overflow:hidden;
+
+    cursor:pointer;
+
+    background:#111;
+}
+
+.gallery-item:nth-child(1){
+    grid-column:span 2;
+    grid-row:span 2;
+}
+
+.gallery-item img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.5s;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.08);
+}
+
+.gallery-item::after{
+    content:"+";
+
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(225,6,0,.7);
+
+    font-size:40px;
+
+    opacity:0;
+
+    transition:.3s;
+}
+
+.gallery-item:hover::after{
+    opacity:1;
+}
+
+
+/* =========================================================
+   BUDGET
+========================================================= */
+
+.budget{
+    background:
+        radial-gradient(
+            circle at 85% 30%,
+            rgba(225,6,0,.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #160304,
+            #080a0d 60%
+        );
+}
+
+.budget-grid{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:60px;
+
+    align-items:center;
+}
+
+.budget-copy h2{
+    font-size:clamp(40px,5vw,68px);
+    line-height:.88;
+
+    text-transform:uppercase;
+}
+
+.budget-copy h2 span{
+    color:var(--red);
+}
+
+.budget-copy p{
+    max-width:500px;
+
+    margin-top:22px;
+
+    color:#858b94;
+
+    line-height:1.8;
+}
+
+.budget-features{
+    margin-top:28px;
+}
+
+.budget-features li{
+    margin-bottom:10px;
+
+    color:#aaa;
+
+    font-size:12px;
+}
+
+.budget-features li::before{
+    content:"✓";
+
+    margin-right:9px;
+
+    color:var(--red);
+}
+
+.budget-form{
+    padding:35px;
+
+    border:1px solid var(--border);
+
+    background:var(--dark);
+
+    box-shadow:var(--shadow);
+}
+
+.form-group{
+    margin-bottom:19px;
+}
+
+.form-group label{
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#888;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+
+    min-height:49px;
+
+    padding:0 13px;
+
+    color:#fff;
+
+    background:#0a0c0f;
+
+    border:1px solid var(--border);
+
+    outline:none;
+}
+
+.form-group textarea{
+    padding-top:13px;
+    resize:vertical;
+    min-height:100px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:var(--red);
+}
+
+.range-value{
+    margin-top:7px;
+
+    color:var(--red);
+
+    font-size:11px;
+    font-weight:bold;
+}
+
+input[type="range"]{
+    padding:0;
+    accent-color:var(--red);
+}
+
+.budget-result{
+    margin-top:20px;
+
+    padding:22px;
+
+    background:rgba(225,6,0,.07);
+
+    border:1px solid rgba(225,6,0,.22);
+}
+
+.budget-result small{
+    display:block;
+
+    color:#777;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+}
+
+.budget-result strong{
+    display:block;
+
+    margin-top:5px;
+
+    font-size:32px;
+}
+
+.budget-progress{
+    height:4px;
+
+    margin-top:14px;
+
+    background:#25282d;
+}
+
+.budget-progress span{
+    display:block;
+
+    height:100%;
+    width:0;
+
+    background:var(--red);
+
+    transition:.5s;
+}
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.faq{
+    background:#0b0e12;
+}
+
+.faq-list{
+    max-width:900px;
+}
+
+.faq-item{
+    margin-bottom:8px;
+
+    border:1px solid var(--border);
+
+    background:var(--dark);
+}
+
+.faq-question{
+    width:100%;
+
+    padding:20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    border:0;
+    background:transparent;
+
+    color:#fff;
+
+    text-align:left;
+
+    font-size:12px;
+    font-weight:bold;
+}
+
+.faq-question span{
+    color:var(--red);
+    font-size:20px;
+}
+
+.faq-answer{
+    max-height:0;
+
+    overflow:hidden;
+
+    padding:0 20px;
+
+    color:#777;
+
+    font-size:12px;
+    line-height:1.7;
+
+    transition:.3s;
+}
+
+.faq-item.active .faq-answer{
+    max-height:200px;
+    padding-bottom:20px;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact{
+    background:var(--black);
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:60px;
+}
+
+.contact-info h2{
+    font-size:clamp(35px,5vw,60px);
+
+    line-height:.9;
+
+    text-transform:uppercase;
+}
+
+.contact-info h2 span{
+    color:var(--red);
+}
+
+.contact-info p{
+    margin-top:20px;
+
+    color:#777;
+
+    line-height:1.8;
+}
+
+.contact-list{
+    margin-top:30px;
+}
+
+.contact-list li{
+    margin-bottom:15px;
+
+    color:#aaa;
+
+    font-size:12px;
+}
+
+.contact-list strong{
+    display:block;
+
+    margin-bottom:4px;
+
+    color:#fff;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.contact-form{
+    padding:35px;
+
+    background:var(--dark);
+    border:1px solid var(--border);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    padding:60px 22px 30px;
+
+    background:#050608;
+
+    border-top:1px solid var(--border);
+}
+
+.footer-grid{
+    width:min(1250px,100%);
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr 1fr 1fr;
+
+    gap:40px;
+}
+
+.footer-brand p{
+    max-width:380px;
+
+    margin-top:15px;
+
+    color:#666;
+
+    font-size:12px;
+    line-height:1.7;
+}
+
+footer h4{
+    margin-bottom:17px;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+footer li{
+    margin-bottom:10px;
+
+    color:#666;
+
+    font-size:12px;
+}
+
+footer li a:hover{
+    color:var(--red);
+}
+
+.copyright{
+    width:min(1250px,100%);
+    margin:45px auto 0;
+
+    padding-top:25px;
+
+    border-top:1px solid var(--border);
+
+    color:#444;
+
+    font-size:10px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+
+    z-index:10000;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.85);
+
+    backdrop-filter:blur(12px);
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-content{
+    position:relative;
+
+    width:min(950px,100%);
+    max-height:92vh;
+
+    overflow-y:auto;
+
+    background:#101318;
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+    animation:modalIn .25s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:translateY(25px) scale(.98);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.close-modal{
+    position:absolute;
+
+    right:15px;
+    top:15px;
+
+    z-index:5;
+
+    width:40px;
+    height:40px;
+
+    border:1px solid rgba(255,255,255,.2);
+
+    background:rgba(0,0,0,.7);
+
+    color:#fff;
+
+    font-size:20px;
+}
+
+.modal-image{
+    height:350px;
+}
+
+.modal-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.modal-body{
+    padding:35px;
+}
+
+.modal-body h2{
+    font-size:44px;
+
+    text-transform:uppercase;
+}
+
+.modal-description{
+    max-width:750px;
+
+    margin:15px 0 25px;
+
+    color:#858b94;
+
+    line-height:1.75;
+}
+
+.modal-specs{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:10px;
+}
+
+.modal-spec{
+    padding:18px;
+
+    background:#090b0e;
+
+    border:1px solid var(--border);
+}
+
+.modal-spec span{
+    display:block;
+
+    color:#666;
+
+    font-size:8px;
+
+    text-transform:uppercase;
+}
+
+.modal-spec strong{
+    display:block;
+
+    margin-top:6px;
+
+    color:#fff;
+
+    font-size:15px;
+}
+
+.modal-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+
+    margin-top:25px;
+}
+
+
+/* =========================================================
+   GALLERY MODAL
+========================================================= */
+
+.image-modal img{
+    max-height:75vh;
+    width:auto;
+    max-width:100%;
+    margin:auto;
+    object-fit:contain;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    z-index:20000;
+
+    max-width:320px;
+
+    padding:15px 20px;
+
+    background:#15191e;
+
+    border-left:4px solid var(--red);
+
+    box-shadow:var(--shadow);
+
+    transform:translateX(150%);
+
+    transition:.3s;
+}
+
+.toast.show{
+    transform:translateX(0);
+}
+
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+.back-top{
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    z-index:4000;
+
+    width:43px;
+    height:43px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid var(--border);
+
+    background:#11151a;
+
+    color:#fff;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.3s;
+}
+
+.back-top.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.back-top:hover{
+    background:var(--red);
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(25px);
+
+    transition:
+        opacity .7s ease,
+        transform .7s ease;
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
+/* =========================================================
+   RESPONSIVE 1100
+========================================================= */
+
+@media(max-width:1100px){
+
+    .cars-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .hero h1{
+        font-size:clamp(55px,9vw,95px);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE 900
+========================================================= */
+
+@media(max-width:900px){
+
+    .nav-links{
+        gap:16px;
+    }
+
+    .cars-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .featured-grid,
+    .budget-grid,
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .featured-image{
+        min-height:420px;
+    }
+
+    .steps{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stat-box:nth-child(2){
+        border-right:0;
+    }
+
+    .stat-box:nth-child(-n+2){
+        border-bottom:1px solid var(--border);
+    }
+
+    .gallery{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .footer-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE 650
+========================================================= */
+
+@media(max-width:650px){
+
+    header{
+        height:65px;
+    }
+
+    .nav{
+        padding:0 16px;
+    }
+
+    .logo{
+        font-size:17px;
+        letter-spacing:2px;
+    }
+
+    .nav-actions{
+        margin-left:auto;
+        margin-right:8px;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .nav-links{
+        position:absolute;
+
+        top:65px;
+        left:0;
+
+        width:100%;
+
+        display:none;
+
+        flex-direction:column;
+        align-items:flex-start;
+
+        gap:0;
+
+        padding:10px 20px 20px;
+
+        background:rgba(7,9,11,.98);
+
+        border-bottom:1px solid var(--border);
+    }
+
+    .nav-links.active{
+        display:flex;
+    }
+
+    .nav-links li{
+        width:100%;
+    }
+
+    .nav-links a{
+        display:block;
+
+        width:100%;
+
+        padding:15px 0;
+
+        border-bottom:1px solid var(--border);
+    }
+
+    .hero-content{
+        padding:130px 18px 60px;
+    }
+
+    .hero h1{
+        letter-spacing:-4px;
+    }
+
+    .hero-description{
+        font-size:14px;
+    }
+
+    .hero-stats{
+        gap:25px;
+        flex-wrap:wrap;
+    }
+
+    section{
+        padding:80px 17px;
+    }
+
+    .catalog-toolbar{
+        align-items:stretch;
+    }
+
+    .catalog-controls{
+        width:100%;
+        flex-direction:column;
+    }
+
+    .search-box input{
+        width:100%;
+    }
+
+    .sort-select{
+        width:100%;
+    }
+
+    .cars-grid{
+        grid-template-columns:1fr;
+    }
+
+    .car-image{
+        height:250px;
+    }
+
+    .featured-image{
+        min-height:320px;
+    }
+
+    .featured-content{
+        padding:35px 25px;
+    }
+
+    .steps{
+        grid-template-columns:1fr;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stat-box{
+        border-right:0;
+        border-bottom:1px solid var(--border);
+    }
+
+    .stat-box:last-child{
+        border-bottom:0;
+    }
+
+    .gallery{
+        grid-template-columns:1fr 1fr;
+        grid-auto-rows:160px;
+    }
+
+    .gallery-item:nth-child(1){
+        grid-column:span 2;
+    }
+
+    .modal-specs{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .modal-body{
+        padding:25px 20px;
+    }
+
+    .modal-body h2{
+        font-size:32px;
+    }
+
+    .modal-image{
+        height:250px;
+    }
+
+    .budget-form,
+    .contact-form{
+        padding:25px 20px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    html{
+        scroll-behavior:auto;
+    }
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        transition-duration:.01ms!important;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- =========================================================
+     LOADER
+========================================================= -->
+
+<div class="page-loader" id="pageLoader">
+
+    <div class="loader-box">
+
+        <div class="loader-logo">
+            GARAGE<span>PROJECT</span>
+        </div>
+
+        <div class="loader-line"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header id="header">
+
+    <nav class="nav">
+
+        <a href="#inicio" class="logo">
+            GARAGE<span>PROJECT</span>
+        </a>
+
+        <ul class="nav-links" id="navLinks">
+
+            <li>
+                <a href="#inicio">Início</a>
+            </li>
+
+            <li>
+                <a href="#catalogo">Carros</a>
+            </li>
+
+            <li>
+                <a href="#projeto">Projeto</a>
+            </li>
+
+            <li>
+                <a href="#comparar">Comparar</a>
+            </li>
+
+            <li>
+                <a href="#galeria">Galeria</a>
+            </li>
+
+            <li>
+                <a href="#orcamento">Orçamento</a>
+            </li>
+
+        </ul>
+
+
+        <div class="nav-actions">
+
+            <button
+                class="favorite-counter"
+                id="favoriteCounter"
+                title="Favoritos"
+            >
+                ♥
+                <span id="favoriteCount">0</span>
+            </button>
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                aria-label="Abrir menu"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<main>
+
+<section class="hero" id="inicio">
+
+    <div class="hero-content">
+
+        <div class="hero-tag">
+            Automotive Database
+        </div>
+
+        <h1>
+            Built<br>
+            Not <span>Bought.</span>
+        </h1>
+
+        <p class="hero-description">
+            Uma garagem digital para quem gosta de carros clássicos,
+            JDM, máquinas europeias, projetos de rua e builds preparados
+            do zero.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a
+                href="#catalogo"
+                class="btn btn-primary"
+            >
+                Explorar garagem
+            </a>
+
+            <a
+                href="#orcamento"
+                class="btn btn-outline"
+            >
+                Montar projeto
+            </a>
+
+        </div>
+
+
+        <div class="hero-stats">
+
+            <div class="stat">
+
+                <strong>08</strong>
+
+                <span>
+                    Carros catalogados
+                </span>
+
+            </div>
+
+            <div class="stat">
+
+                <strong>04</strong>
+
+                <span>
+                    Categorias
+                </span>
+
+            </div>
+
+            <div class="stat">
+
+                <strong>∞</strong>
+
+                <span>
+                    Possibilidades
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CATALOG
+========================================================= -->
+
+<section id="catalogo">
+
+<div class="container">
+
+    <div class="section-header reveal">
+
+        <div class="eyebrow">
+            Garage Database
+        </div>
+
+        <h2 class="section-title">
+            Escolha sua máquina
+        </h2>
+
+        <p class="section-subtitle">
+            Modelos selecionados para projetos JDM, clássicos,
+            preparação de rua, restauração e builds personalizados.
+        </p>
+
+    </div>
+
+
+    <div class="catalog-toolbar reveal">
+
+        <div class="filters">
+
+            <button
+                class="filter active"
+                data-filter="all"
+            >
+                Todos
+            </button>
+
+            <button
+                class="filter"
+                data-filter="jdm"
+            >
+                JDM
+            </button>
+
+            <button
+                class="filter"
+                data-filter="europeu"
+            >
+                Europeus
+            </button>
+
+            <button
+                class="filter"
+                data-filter="muscle"
+            >
+                Muscle
+            </button>
+
+            <button
+                class="filter"
+                data-filter="rally"
+            >
+                Rally
+            </button>
+
+        </div>
+
+
+        <div class="catalog-controls">
+
+            <div class="search-box">
+
+                <span class="search-icon">
+                    ⌕
+                </span>
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Buscar carro..."
+                >
+
+            </div>
+
+
+            <select
+                class="sort-select"
+                id="sortSelect"
+            >
+
+                <option value="default">
+                    Ordenar
+                </option>
+
+                <option value="price-low">
+                    Menor preço
+                </option>
+
+                <option value="price-high">
+                    Maior preço
+                </option>
+
+                <option value="year-old">
+                    Mais antigo
+                </option>
+
+                <option value="year-new">
+                    Mais novo
+                </option>
+
+                <option value="power-high">
+                    Maior potência
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div class="catalog-info">
+
+        <span id="catalogCount">
+            8 carros encontrados
+        </span>
+
+    </div>
+
+
+    <div
+        class="cars-grid"
+        id="carsGrid"
+    >
+
+
+        <!-- =====================================================
+             GALANT VR-4
+        ====================================================== -->
+
+        <article
+            class="car-card reveal"
+            data-category="jdm rally"
+            data-name="Mitsubishi Galant VR-4"
+            data-brand="Mitsubishi"
+            data-year="1991"
+            data-engine="4G63T"
+            data-power="240 cv"
+            data-drive="4WD"
+            data-price="45000"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/1990-1991_Mitsubishi_Galant_(E39A)_2.0_DOHC_Turbo_VR-4_With_AMG_Bodykits_Sedan_(04-11-2017)_01.jpg"
+            data-description="Sedã esportivo japonês com motor 4G63 turbo e tração integral. Uma excelente base temática para um projeto inspirado no rally japonês dos anos 90."
+        >
+
+            <div class="car-image">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/1990-1991_Mitsubishi_Galant_(E39A)_2.0_DOHC_Turbo_VR-4_With_AMG_Bodykits_Sedan_(04-11-2017)_01.jpg"
+                    alt="Mitsubishi Galant VR-4"
+                    loading="lazy"
+                >
+
+                <span class="car-badge">
+                    JDM
+                </span>
+
+                <button
+                    class="favorite-btn"
+                    title="Adicionar aos favoritos"
+                >
+                    ♡
+                </button>
+
+            </div>
+
+
+            <div class="car-info">
+
+                <div class="car-brand">
+                    Mitsubishi
+                </div>
+
+                <h3 class="car-name">
+                    Galant VR-4
+                </h3>
+
+                <div class="car-year">
+                    1991 · 6ª geração
+                </div>
+
+
+                <div class="car-specs">
+
+                    <div class="spec">
+                        Motor
+                        <strong>
+                            4G63T
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Potência
+                        <strong>
+                            240 cv
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Tração
+                        <strong>
+                            4WD
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Categoria
+                        <strong>
+                            Rally
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span class="price">
+                        R$ 45 mil
+                    </span>
+
+                    <button class="details-btn">
+                        Ver detalhes →
+                    </button>
+
+                </div>
+
+
+                <label class="compare-check">
+
+                    <input
+                        type="checkbox"
+                        class="compare-input"
+                    >
+
+                    Comparar
+
+                </label>
+
+            </div>
+
+        </article>
+
+
+        <!-- =====================================================
+             SKYLINE
+        ====================================================== -->
+
+        <article
+            class="car-card reveal"
+            data-category="jdm"
+            data-name="Nissan Skyline GT-R R32"
+            data-brand="Nissan"
+            data-year="1991"
+            data-engine="RB26DETT"
+            data-power="280 cv"
+            data-drive="AWD"
+            data-price="95000"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/1991_Nissan_Skyline_R32_GTR_Coupe_(25946466035).jpg"
+            data-description="O Skyline GT-R R32 combina seis cilindros em linha, dois turbos e sistema de tração integral. Um dos grandes ícones da cultura JDM."
+        >
+
+            <div class="car-image">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/1991_Nissan_Skyline_R32_GTR_Coupe_(25946466035).jpg"
+                    alt="Nissan Skyline GT-R R32"
+                    loading="lazy"
+                >
+
+                <span class="car-badge">
+                    JDM
+                </span>
+
+                <button
+                    class="favorite-btn"
+                    title="Adicionar aos favoritos"
+                >
+                    ♡
+                </button>
+
+            </div>
+
+
+            <div class="car-info">
+
+                <div class="car-brand">
+                    Nissan
+                </div>
+
+                <h3 class="car-name">
+                    Skyline GT-R R32
+                </h3>
+
+                <div class="car-year">
+                    1991 · GT-R
+                </div>
+
+
+                <div class="car-specs">
+
+                    <div class="spec">
+                        Motor
+                        <strong>
+                            RB26DETT
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Potência
+                        <strong>
+                            280 cv
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Tração
+                        <strong>
+                            AWD
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Categoria
+                        <strong>
+                            JDM
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span class="price">
+                        R$ 95 mil
+                    </span>
+
+                    <button class="details-btn">
+                        Ver detalhes →
+                    </button>
+
+                </div>
+
+
+                <label class="compare-check">
+
+                    <input
+                        type="checkbox"
+                        class="compare-input"
+                    >
+
+                    Comparar
+
+                </label>
+
+            </div>
+
+        </article>
+
+
+        <!-- =====================================================
+             BMW
+        ====================================================== -->
+
+        <article
+            class="car-card reveal"
+            data-category="europeu"
+            data-name="BMW 328i E36"
+            data-brand="BMW"
+            data-year="1995"
+            data-engine="M52B28"
+            data-power="193 cv"
+            data-drive="RWD"
+            data-price="65000"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/E36_328i.jpg"
+            data-description="BMW E36 328i com motor M52B28 de seis cilindros em linha. Uma plataforma conhecida pelo equilíbrio entre desempenho, dirigibilidade e possibilidades de preparação."
+        >
+
+            <div class="car-image">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/E36_328i.jpg"
+                    alt="BMW E36 328i"
+                    loading="lazy"
+                >
+
+                <span class="car-badge">
+                    EURO
+                </span>
+
+                <button
+                    class="favorite-btn"
+                    title="Adicionar aos favoritos"
+                >
+                    ♡
+                </button>
+
+            </div>
+
+
+            <div class="car-info">
+
+                <div class="car-brand">
+                    BMW
+                </div>
+
+                <h3 class="car-name">
+                    328i E36
+                </h3>
+
+                <div class="car-year">
+                    1995 · E36
+                </div>
+
+
+                <div class="car-specs">
+
+                    <div class="spec">
+                        Motor
+                        <strong>
+                            M52B28
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Potência
+                        <strong>
+                            193 cv
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Tração
+                        <strong>
+                            RWD
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Categoria
+                        <strong>
+                            Euro
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span class="price">
+                        R$ 65 mil
+                    </span>
+
+                    <button class="details-btn">
+                        Ver detalhes →
+                    </button>
+
+                </div>
+
+
+                <label class="compare-check">
+
+                    <input
+                        type="checkbox"
+                        class="compare-input"
+                    >
+
+                    Comparar
+
+                </label>
+
+            </div>
+
+        </article>
+
+
+        <!-- =====================================================
+             SUPRA
+        ====================================================== -->
+
+        <article
+            class="car-card reveal"
+            data-category="jdm"
+            data-name="Toyota Supra A80"
+            data-brand="Toyota"
+            data-year="1993"
+            data-engine="2JZ-GTE"
+            data-power="280 cv"
+            data-drive="RWD"
+            data-price="180000"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/Toyota_Supra_mk4.jpg"
+            data-description="Toyota Supra A80, quarta geração. O modelo é conhecido pelo motor 2JZ-GTE, tração traseira e enorme presença na cultura automotiva."
+        >
+
+            <div class="car-image">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Toyota_Supra_mk4.jpg"
+                    alt="Toyota Supra A80 MK4"
+                    loading="lazy"
+                >
+
+                <span class="car-badge">
+                    JDM
+                </span>
+
+                <button
+                    class="favorite-btn"
+                    title="Adicionar aos favoritos"
+                >
+                    ♡
+                </button>
+
+            </div>
+
+
+            <div class="car-info">
+
+                <div class="car-brand">
+                    Toyota
+                </div>
+
+                <h3 class="car-name">
+                    Supra A80
+                </h3>
+
+                <div class="car-year">
+                    1993 · MK4
+                </div>
+
+
+                <div class="car-specs">
+
+                    <div class="spec">
+                        Motor
+                        <strong>
+                            2JZ-GTE
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Potência
+                        <strong>
+                            280 cv
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Tração
+                        <strong>
+                            RWD
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Categoria
+                        <strong>
+                            JDM
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span class="price">
+                        R$ 180 mil
+                    </span>
+
+                    <button class="details-btn">
+                        Ver detalhes →
+                    </button>
+
+                </div>
+
+
+                <label class="compare-check">
+
+                    <input
+                        type="checkbox"
+                        class="compare-input"
+                    >
+
+                    Comparar
+
+                </label>
+
+            </div>
+
+        </article>
+
+
+        <!-- =====================================================
+             MUSTANG
+        ====================================================== -->
+
+        <article
+            class="car-card reveal"
+            data-category="muscle"
+            data-name="Ford Mustang 1969"
+            data-brand="Ford"
+            data-year="1969"
+            data-engine="V8"
+            data-power="300 cv"
+            data-drive="RWD"
+            data-price="120000"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/00_1812_Ford_Mustang_1969.jpg"
+            data-description="Mustang modelo 1969. Um clássico americano de grande presença visual, utilizado aqui como base para uma proposta de projeto muscle car."
+        >
+
+            <div class="car-image">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/00_1812_Ford_Mustang_1969.jpg"
+                    alt="Ford Mustang 1969"
+                    loading="lazy"
+                >
+
+                <span class="car-badge">
+                    MUSCLE
+                </span>
+
+                <button
+                    class="favorite-btn"
+                    title="Adicionar aos favoritos"
+                >
+                    ♡
+                </button>
+
+            </div>
+
+
+            <div class="car-info">
+
+                <div class="car-brand">
+                    Ford
+                </div>
+
+                <h3 class="car-name">
+                    Mustang 1969
+                </h3>
+
+                <div class="car-year">
+                    1969 · Clássico
+                </div>
+
+
+                <div class="car-specs">
+
+                    <div class="spec">
+                        Motor
+                        <strong>
+                            V8
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Potência
+                        <strong>
+                            300 cv
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Tração
+                        <strong>
+                            RWD
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Categoria
+                        <strong>
+                            Muscle
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span class="price">
+                        R$ 120 mil
+                    </span>
+
+                    <button class="details-btn">
+                        Ver detalhes →
+                    </button>
+
+                </div>
+
+
+                <label class="compare-check">
+
+                    <input
+                        type="checkbox"
+                        class="compare-input"
+                    >
+
+                    Comparar
+
+                </label>
+
+            </div>
+
+        </article>
+
+
+        <!-- =====================================================
+             RX7
+        ====================================================== -->
+
+        <article
+            class="car-card reveal"
+            data-category="jdm"
+            data-name="Mazda RX-7 FD"
+            data-brand="Mazda"
+            data-year="1993"
+            data-engine="13B-REW"
+            data-power="255 cv"
+            data-drive="RWD"
+            data-price="110000"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/Mazda-RX-7-FD.jpg"
+            data-description="Mazda RX-7 FD com motor rotativo biturbo 13B-REW. Um dos esportivos japoneses mais marcantes da década de 1990."
+        >
+
+            <div class="car-image">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Mazda-RX-7-FD.jpg"
+                    alt="Mazda RX-7 FD"
+                    loading="lazy"
+                >
+
+                <span class="car-badge">
+                    JDM
+                </span>
+
+                <button
+                    class="favorite-btn"
+                    title="Adicionar aos favoritos"
+                >
+                    ♡
+                </button>
+
+            </div>
+
+
+            <div class="car-info">
+
+                <div class="car-brand">
+                    Mazda
+                </div>
+
+                <h3 class="car-name">
+                    RX-7 FD
+                </h3>
+
+                <div class="car-year">
+                    1993 · FD3S
+                </div>
+
+
+                <div class="car-specs">
+
+                    <div class="spec">
+                        Motor
+                        <strong>
+                            13B-REW
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Potência
+                        <strong>
+                            255 cv
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Tração
+                        <strong>
+                            RWD
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Categoria
+                        <strong>
+                            JDM
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span class="price">
+                        R$ 110 mil
+                    </span>
+
+                    <button class="details-btn">
+                        Ver detalhes →
+                    </button>
+
+                </div>
+
+
+                <label class="compare-check">
+
+                    <input
+                        type="checkbox"
+                        class="compare-input"
+                    >
+
+                    Comparar
+
+                </label>
+
+            </div>
+
+        </article>
+
+
+        <!-- =====================================================
+             EVO VI
+        ====================================================== -->
+
+        <article
+            class="car-card reveal"
+            data-category="jdm rally"
+            data-name="Mitsubishi Lancer Evolution VI"
+            data-brand="Mitsubishi"
+            data-year="1999"
+            data-engine="4G63T"
+            data-power="280 cv"
+            data-drive="AWD"
+            data-price="135000"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/1999_Mitsubishi_Lancer_Evolution_6_1999_(15313929068).jpg"
+            data-description="Lancer Evolution VI com motor 4G63 turbo e tração integral. Plataforma diretamente ligada à tradição de rally da Mitsubishi."
+        >
+
+            <div class="car-image">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/1999_Mitsubishi_Lancer_Evolution_6_1999_(15313929068).jpg"
+                    alt="Mitsubishi Lancer Evolution VI"
+                    loading="lazy"
+                >
+
+                <span class="car-badge">
+                    RALLY
+                </span>
+
+                <button
+                    class="favorite-btn"
+                    title="Adicionar aos favoritos"
+                >
+                    ♡
+                </button>
+
+            </div>
+
+
+            <div class="car-info">
+
+                <div class="car-brand">
+                    Mitsubishi
+                </div>
+
+                <h3 class="car-name">
+                    Lancer Evo VI
+                </h3>
+
+                <div class="car-year">
+                    1999 · Evolution VI
+                </div>
+
+
+                <div class="car-specs">
+
+                    <div class="spec">
+                        Motor
+                        <strong>
+                            4G63T
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Potência
+                        <strong>
+                            280 cv
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Tração
+                        <strong>
+                            AWD
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Categoria
+                        <strong>
+                            Rally
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span class="price">
+                        R$ 135 mil
+                    </span>
+
+                    <button class="details-btn">
+                        Ver detalhes →
+                    </button>
+
+                </div>
+
+
+                <label class="compare-check">
+
+                    <input
+                        type="checkbox"
+                        class="compare-input"
+                    >
+
+                    Comparar
+
+                </label>
+
+            </div>
+
+        </article>
+
+
+        <!-- =====================================================
+             IMPREZA
+        ====================================================== -->
+
+        <article
+            class="car-card reveal"
+            data-category="jdm rally"
+            data-name="Subaru Impreza WRX STI"
+            data-brand="Subaru"
+            data-year="2002"
+            data-engine="EJ207"
+            data-power="280 cv"
+            data-drive="AWD"
+            data-price="125000"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/2002_Subaru_Impreza_WRX_STI_(GD),_Lok_Wah_North_Estate_(Front).jpg"
+            data-description="Subaru Impreza WRX STI da geração GD, equipado com motor boxer turbo e tração integral. Uma base natural para um projeto inspirado em rally."
+        >
+
+            <div class="car-image">
+
+                <img
+                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/2002_Subaru_Impreza_WRX_STI_(GD),_Lok_Wah_North_Estate_(Front).jpg"
+                    alt="Subaru Impreza WRX STI"
+                    loading="lazy"
+                >
+
+                <span class="car-badge">
+                    RALLY
+                </span>
+
+                <button
+                    class="favorite-btn"
+                    title="Adicionar aos favoritos"
+                >
+                    ♡
+                </button>
+
+            </div>
+
+
+            <div class="car-info">
+
+                <div class="car-brand">
+                    Subaru
+                </div>
+
+                <h3 class="car-name">
+                    Impreza WRX STI
+                </h3>
+
+                <div class="car-year">
+                    2002 · GDB
+                </div>
+
+
+                <div class="car-specs">
+
+                    <div class="spec">
+                        Motor
+                        <strong>
+                            EJ207
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Potência
+                        <strong>
+                            280 cv
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Tração
+                        <strong>
+                            AWD
+                        </strong>
+                    </div>
+
+                    <div class="spec">
+                        Categoria
+                        <strong>
+                            Rally
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <span class="price">
+                        R$ 125 mil
+                    </span>
+
+                    <button class="details-btn">
+                        Ver detalhes →
+                    </button>
+
+                </div>
+
+
+                <label class="compare-check">
+
+                    <input
+                        type="checkbox"
+                        class="compare-input"
+                    >
+
+                    Comparar
+
+                </label>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+    <div
+        class="empty-state"
+        id="emptyState"
+    >
+
+        <h3>
+            Nenhum carro encontrado
+        </h3>
+
+        <p>
+            Tente outro nome ou categoria.
+        </p>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     STATS
+========================================================= -->
+
+<section class="stats-section">
+
+<div class="container">
+
+    <div class="stats-grid reveal">
+
+        <div class="stat-box">
+
+            <strong>
+                08
+            </strong>
+
+            <span>
+                Modelos disponíveis
+            </span>
+
+        </div>
+
+        <div class="stat-box">
+
+            <strong>
+                04
+            </strong>
+
+            <span>
+                Categorias
+            </span>
+
+        </div>
+
+        <div class="stat-box">
+
+            <strong>
+                1969
+            </strong>
+
+            <span>
+                Modelo mais antigo
+            </span>
+
+        </div>
+
+        <div class="stat-box">
+
+            <strong>
+                280+
+            </strong>
+
+            <span>
+                Potência máxima de fábrica
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     FEATURED
+========================================================= -->
+
+<section
+    class="featured"
+    id="projeto"
+>
+
+<div class="container">
+
+    <div class="featured-grid reveal">
+
+        <div class="featured-image"></div>
+
+
+        <div class="featured-content">
+
+            <div class="eyebrow">
+                Project #001
+            </div>
+
+            <h3>
+                Galant<br>
+                <span>VR-4</span>
+            </h3>
+
+            <p>
+                Um projeto inspirado nos sedãs japoneses de rally dos
+                anos 90. A ideia é manter o visual discreto e trabalhar
+                motor, suspensão, freios, rodas e acabamento.
+            </p>
+
+
+            <ul class="build-list">
+
+                <li>
+                    Motor 4G63 Turbo
+                </li>
+
+                <li>
+                    Intercooler maior
+                </li>
+
+                <li>
+                    Suspensão esportiva
+                </li>
+
+                <li>
+                    Rodas 17" estilo rally
+                </li>
+
+                <li>
+                    Upgrade de freios
+                </li>
+
+                <li>
+                    Escape esportivo
+                </li>
+
+            </ul>
+
+
+            <a
+                href="#orcamento"
+                class="btn btn-primary"
+            >
+                Montar meu projeto
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     PROCESS
+========================================================= -->
+
+<section class="process">
+
+<div class="container">
+
+    <div class="section-header reveal">
+
+        <div class="eyebrow">
+            Build Process
+        </div>
+
+        <h2 class="section-title">
+            Do projeto à garagem
+        </h2>
+
+        <p class="section-subtitle">
+            Uma estrutura simples para transformar uma ideia em um
+            projeto automotivo completo.
+        </p>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step reveal">
+
+            <div class="step-number">
+                01
+            </div>
+
+            <h3>
+                Base
+            </h3>
+
+            <p>
+                Escolha o carro, avalie o estado da plataforma e defina
+                o objetivo principal do projeto.
+            </p>
+
+        </div>
+
+
+        <div class="step reveal">
+
+            <div class="step-number">
+                02
+            </div>
+
+            <h3>
+                Planejamento
+            </h3>
+
+            <p>
+                Defina motor, suspensão, rodas, freios, interior,
+                estética e orçamento.
+            </p>
+
+        </div>
+
+
+        <div class="step reveal">
+
+            <div class="step-number">
+                03
+            </div>
+
+            <h3>
+                Build
+            </h3>
+
+            <p>
+                Execute a preparação mecânica, instalação das peças
+                e alterações visuais.
+            </p>
+
+        </div>
+
+
+        <div class="step reveal">
+
+            <div class="step-number">
+                04
+            </div>
+
+            <h3>
+                Final
+            </h3>
+
+            <p>
+                Faça os ajustes finais, alinhamento, acabamento,
+                testes e documentação do projeto.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     COMPARAÇÃO
+========================================================= -->
+
+<section
+    class="compare-section"
+    id="comparar"
+>
+
+<div class="container">
+
+    <div class="section-header reveal">
+
+        <div class="eyebrow">
+            Garage Comparison
+        </div>
+
+        <h2 class="section-title">
+            Compare máquinas
+        </h2>
+
+        <p class="section-subtitle">
+            Marque até dois carros no catálogo para visualizar
+            suas especificações lado a lado.
+        </p>
+
+    </div>
+
+
+    <div class="compare-box">
+
+        <div
+            class="compare-empty"
+            id="compareEmpty"
+        >
+            Selecione dois carros no catálogo para comparar.
+        </div>
+
+
+        <table
+            class="compare-table"
+            id="compareTable"
+        >
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Especificação
+                    </th>
+
+                    <th id="compareCar1">
+                        —
+                    </th>
+
+                    <th id="compareCar2">
+                        —
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        Marca
+                    </td>
+
+                    <td id="compareBrand1">
+                        —
+                    </td>
+
+                    <td id="compareBrand2">
+                        —
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Ano
+                    </td>
+
+                    <td id="compareYear1">
+                        —
+                    </td>
+
+                    <td id="compareYear2">
+                        —
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Motor
+                    </td>
+
+                    <td id="compareEngine1">
+                        —
+                    </td>
+
+                    <td id="compareEngine2">
+                        —
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Potência
+                    </td>
+
+                    <td id="comparePower1">
+                        —
+                    </td>
+
+                    <td id="comparePower2">
+                        —
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Tração
+                    </td>
+
+                    <td id="compareDrive1">
+                        —
+                    </td>
+
+                    <td id="compareDrive2">
+                        —
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Preço base
+                    </td>
+
+                    <td id="comparePrice1">
+                        —
+                    </td>
+
+                    <td id="comparePrice2">
+                        —
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     GALLERY
+========================================================= -->
+
+<section
+    class="gallery-section"
+    id="galeria"
+>
+
+<div class="container">
+
+    <div class="section-header reveal">
+
+        <div class="eyebrow">
+            Garage Gallery
+        </div>
+
+        <h2 class="section-title">
+            Inspiração
+        </h2>
+
+        <p class="section-subtitle">
+            Uma seleção visual dos modelos usados no catálogo.
+            Clique em uma imagem para ampliar.
+        </p>
+
+    </div>
+
+
+    <div class="gallery">
+
+        <div
+            class="gallery-item reveal"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/1991_Nissan_Skyline_R32_GTR_Coupe_(25946466035).jpg"
+        >
+
+            <img
+                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/1991_Nissan_Skyline_R32_GTR_Coupe_(25946466035).jpg"
+                alt="Nissan Skyline GT-R R32"
+                loading="lazy"
+            >
+
+        </div>
+
+
+        <div
+            class="gallery-item reveal"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/Toyota_Supra_mk4.jpg"
+        >
+
+            <img
+                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Toyota_Supra_mk4.jpg"
+                alt="Toyota Supra A80"
+                loading="lazy"
+            >
+
+        </div>
+
+
+        <div
+            class="gallery-item reveal"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/Mazda-RX-7-FD.jpg"
+        >
+
+            <img
+                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Mazda-RX-7-FD.jpg"
+                alt="Mazda RX-7 FD"
+                loading="lazy"
+            >
+
+        </div>
+
+
+        <div
+            class="gallery-item reveal"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/E36_328i.jpg"
+        >
+
+            <img
+                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/E36_328i.jpg"
+                alt="BMW E36 328i"
+                loading="lazy"
+            >
+
+        </div>
+
+
+        <div
+            class="gallery-item reveal"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/00_1812_Ford_Mustang_1969.jpg"
+        >
+
+            <img
+                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/00_1812_Ford_Mustang_1969.jpg"
+                alt="Ford Mustang 1969"
+                loading="lazy"
+            >
+
+        </div>
+
+
+        <div
+            class="gallery-item reveal"
+            data-image="https://commons.wikimedia.org/wiki/Special:Redirect/file/1999_Mitsubishi_Lancer_Evolution_6_1999_(15313929068).jpg"
+        >
+
+            <img
+                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/1999_Mitsubishi_Lancer_Evolution_6_1999_(15313929068).jpg"
+                alt="Mitsubishi Lancer Evolution VI"
+                loading="lazy"
+            >
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     BUDGET
+========================================================= -->
+
+<section
+    class="budget"
+    id="orcamento"
+>
+
+<div class="container">
+
+    <div class="budget-grid">
+
+        <div class="budget-copy reveal">
+
+            <div class="eyebrow">
+                Project Calculator
+            </div>
+
+            <h2>
+                Quanto custa<br>
+                seu <span>build?</span>
+            </h2>
+
+            <p>
+                Monte uma estimativa inicial combinando o valor da base,
+                nível de preparação, rodas, freios, suspensão e acabamento.
+            </p>
+
+
+            <ul class="budget-features">
+
+                <li>
+                    Valor estimado do veículo
+                </li>
+
+                <li>
+                    Preparação em diferentes estágios
+                </li>
+
+                <li>
+                    Rodas e pneus
+                </li>
+
+                <li>
+                    Suspensão e freios
+                </li>
+
+                <li>
+                    Margem de projeto configurável
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <form
+            class="budget-form reveal"
+            id="budgetForm"
+        >
+
+            <div class="form-group">
+
+                <label>
+                    Carro base
+                </label>
+
+                <select id="carSelect">
+
+                    <option value="45000">
+                        Mitsubishi Galant VR-4 — R$ 45 mil
+                    </option>
+
+                    <option value="95000">
+                        Nissan Skyline GT-R R32 — R$ 95 mil
+                    </option>
+
+                    <option value="65000">
+                        BMW 328i E36 — R$ 65 mil
+                    </option>
+
+                    <option value="180000">
+                        Toyota Supra A80 — R$ 180 mil
+                    </option>
+
+                    <option value="120000">
+                        Ford Mustang 1969 — R$ 120 mil
+                    </option>
+
+                    <option value="110000">
+                        Mazda RX-7 FD — R$ 110 mil
+                    </option>
+
+                    <option value="135000">
+                        Mitsubishi Lancer Evo VI — R$ 135 mil
+                    </option>
+
+                    <option value="125000">
+                        Subaru Impreza WRX STI — R$ 125 mil
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Nível do projeto
+                </label>
+
+                <select id="buildLevel">
+
+                    <option value="0">
+                        Stage 1 — Visual básico
+                    </option>
+
+                    <option value="15000">
+                        Stage 2 — Suspensão + freios
+                    </option>
+
+                    <option value="35000">
+                        Stage 3 — Preparação
+                    </option>
+
+                    <option value="70000">
+                        Stage 4 — Build completo
+                    </option>
+
+                    <option value="120000">
+                        Stage 5 — Projeto extremo
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Rodas e pneus
+                </label>
+
+                <select id="wheels">
+
+                    <option value="0">
+                        Originais
+                    </option>
+
+                    <option value="6000">
+                        Esportivas — R$ 6 mil
+                    </option>
+
+                    <option value="12000">
+                        Premium — R$ 12 mil
+                    </option>
+
+                    <option value="22000">
+                        Forged — R$ 22 mil
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Suspensão
+                </label>
+
+                <select id="suspension">
+
+                    <option value="0">
+                        Original
+                    </option>
+
+                    <option value="5000">
+                        Molas + amortecedores — R$ 5 mil
+                    </option>
+
+                    <option value="10000">
+                        Coilover — R$ 10 mil
+                    </option>
+
+                    <option value="18000">
+                        Setup premium — R$ 18 mil
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Freios
+                </label>
+
+                <select id="brakes">
+
+                    <option value="0">
+                        Originais
+                    </option>
+
+                    <option value="5000">
+                        Pastilhas + discos — R$ 5 mil
+                    </option>
+
+                    <option value="12000">
+                        Big Brake — R$ 12 mil
+                    </option>
+
+                    <option value="22000">
+                        Sistema completo — R$ 22 mil
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Margem para imprevistos:
+                    <span id="marginLabel">
+                        10%
+                    </span>
+                </label>
+
+                <input
+                    type="range"
+                    id="margin"
+                    min="0"
+                    max="30"
+                    value="10"
+                >
+
+                <div class="range-value">
+                    <span id="marginValue">
+                        10%
+                    </span>
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+                style="width:100%"
+            >
+                Calcular projeto
+            </button>
+
+
+            <div class="budget-result">
+
+                <small>
+                    ESTIMATIVA INICIAL
+                </small>
+
+                <strong id="budgetValue">
+                    R$ 49.500
+                </strong>
+
+                <div class="budget-progress">
+                    <span id="budgetProgress"></span>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     FAQ
+========================================================= -->
+
+<section class="faq">
+
+<div class="container">
+
+    <div class="section-header reveal">
+
+        <div class="eyebrow">
+            Frequently Asked
+        </div>
+
+        <h2 class="section-title">
+            Perguntas
+        </h2>
+
+    </div>
+
+
+    <div class="faq-list">
+
+
+        <div class="faq-item reveal">
+
+            <button class="faq-question">
+
+                As imagens correspondem aos carros?
+
+                <span>
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Sim. Nesta versão, as imagens foram associadas
+                especificamente aos modelos apresentados no catálogo,
+                em vez de usar fotos genéricas de carros esportivos.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item reveal">
+
+            <button class="faq-question">
+
+                Os preços são reais?
+
+                <span>
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Não. Os valores apresentados neste projeto são
+                demonstrativos e servem apenas para a calculadora
+                e para a interface do catálogo.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item reveal">
+
+            <button class="faq-question">
+
+                Posso adicionar mais carros?
+
+                <span>
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Sim. Cada carro é um card HTML com atributos
+                de dados. Basta duplicar um card e alterar nome,
+                categoria, especificações, preço e imagem.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item reveal">
+
+            <button class="faq-question">
+
+                Preciso de outro arquivo JavaScript?
+
+                <span>
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Não. Toda a lógica de filtros, favoritos, comparação,
+                modal, calculadora, FAQ, menu e animações está no próprio
+                index.html.
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<section
+    class="contact"
+    id="contato"
+>
+
+<div class="container">
+
+    <div class="contact-grid">
+
+        <div class="contact-info reveal">
+
+            <div class="eyebrow">
+                Garage Contact
+            </div>
+
+            <h2>
+                Vamos construir<br>
+                algo <span>único.</span>
+            </h2>
+
+            <p>
+                Envie uma ideia de projeto e use o formulário como
+                ponto inicial para transformar o conceito em uma build.
+            </p>
+
+
+            <ul class="contact-list">
+
+                <li>
+
+                    <strong>
+                        E-mail
+                    </strong>
+
+                    garage@example.com
+
+                </li>
+
+
+                <li>
+
+                    <strong>
+                        Instagram
+                    </strong>
+
+                    @garageproject
+
+                </li>
+
+
+                <li>
+
+                    <strong>
+                        Local
+                    </strong>
+
+                    Brasil
+
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <form
+            class="contact-form reveal"
+            id="contactForm"
+        >
+
+            <div class="form-group">
+
+                <label>
+                    Nome
+                </label>
+
+                <input
+                    type="text"
+                    id="contactName"
+                    placeholder="Seu nome"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    E-mail
+                </label>
+
+                <input
+                    type="email"
+                    id="contactEmail"
+                    placeholder="voce@email.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Projeto
+                </label>
+
+                <select id="contactProject">
+
+                    <option>
+                        JDM
+                    </option>
+
+                    <option>
+                        Europeu
+                    </option>
+
+                    <option>
+                        Muscle
+                    </option>
+
+                    <option>
+                        Rally
+                    </option>
+
+                    <option>
+                        Clássico
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Mensagem
+                </label>
+
+                <textarea
+                    id="contactMessage"
+                    placeholder="Conte um pouco sobre o seu projeto..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+                style="width:100%"
+            >
+                Enviar projeto
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+<div class="footer-grid">
+
+    <div class="footer-brand">
+
+        <div class="logo">
+            GARAGE<span>PROJECT</span>
+        </div>
+
+        <p>
+            Plataforma demonstrativa para catálogo de veículos,
+            projetos automotivos, comparação de modelos e planejamento
+            de builds.
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <h4>
+            Navegação
+        </h4>
+
+        <ul>
+
+            <li>
+                <a href="#inicio">
+                    Início
+                </a>
+            </li>
+
+            <li>
+                <a href="#catalogo">
+                    Carros
+                </a>
+            </li>
+
+            <li>
+                <a href="#projeto">
+                    Projeto
+                </a>
+            </li>
+
+            <li>
+                <a href="#galeria">
+                    Galeria
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div>
+
+        <h4>
+            Categorias
+        </h4>
+
+        <ul>
+
+            <li>
+                JDM
+            </li>
+
+            <li>
+                Europeus
+            </li>
+
+            <li>
+                Muscle
+            </li>
+
+            <li>
+                Rally
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div>
+
+        <h4>
+            Projeto
+        </h4>
+
+        <ul>
+
+            <li>
+                Comparador
+            </li>
+
+            <li>
+                Calculadora
+            </li>
+
+            <li>
+                Favoritos
+            </li>
+
+            <li>
+                Contato
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+
+<div class="copyright">
+
+    © 2026 Garage Project — Projeto demonstrativo.
+
+</div>
+
+</footer>
+
+
+<!-- =========================================================
+     CAR MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="carModal"
+>
+
+<div class="modal-content">
+
+    <button
+        class="close-modal"
+        id="closeModal"
+    >
+        ×
+    </button>
+
+
+    <div class="modal-image">
+
+        <img
+            id="modalImage"
+            src=""
+            alt=""
+        >
+
+    </div>
+
+
+    <div class="modal-body">
+
+        <div
+            class="eyebrow"
+            id="modalBrand"
+        >
+            Mitsubishi
+        </div>
+
+
+        <h2 id="modalName">
+            Galant VR-4
+        </h2>
+
+
+        <p
+            class="modal-description"
+            id="modalDescription"
+        >
+            —
+        </p>
+
+
+        <div class="modal-specs">
+
+            <div class="modal-spec">
+
+                <span>
+                    Ano
+                </span>
+
+                <strong id="modalYear">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="modal-spec">
+
+                <span>
+                    Motor
+                </span>
+
+                <strong id="modalEngine">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="modal-spec">
+
+                <span>
+                    Potência
+                </span>
+
+                <strong id="modalPower">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="modal-spec">
+
+                <span>
+                    Tração
+                </span>
+
+                <strong id="modalDrive">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <a
+                href="#orcamento"
+                class="btn btn-primary"
+                id="modalBudget"
+            >
+                Usar no orçamento
+            </a>
+
+            <button
+                class="btn btn-outline"
+                id="modalFavorite"
+            >
+                ♥ Favoritar
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     IMAGE MODAL
+========================================================= -->
+
+<div
+    class="modal image-modal"
+    id="imageModal"
+>
+
+<div class="modal-content">
+
+    <button
+        class="close-modal"
+        id="closeImageModal"
+    >
+        ×
+    </button>
+
+    <div style="padding:20px">
+
+        <img
+            id="largeImage"
+            src=""
+            alt=""
+        >
+
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    class="toast"
+    id="toast"
+>
+    Pronto!
+</div>
+
+
+<!-- =========================================================
+     BACK TO TOP
+========================================================= -->
+
+<button
+    class="back-top"
+    id="backTop"
+    title="Voltar ao topo"
+>
+    ↑
+</button>
+
+
+<script>
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+
+        document
+            .getElementById("pageLoader")
+            .classList
+            .add("hidden");
+
+    }, 500);
+
+});
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+const header =
+    document.getElementById("header");
+
+const backTop =
+    document.getElementById("backTop");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 40){
+
+        header.classList.add("scrolled");
+
+    }else{
+
+        header.classList.remove("scrolled");
+
+    }
+
+
+    if(window.scrollY > 500){
+
+        backTop.classList.add("show");
+
+    }else{
+
+        backTop.classList.remove("show");
+
+    }
+
+});
+
+
+backTop.addEventListener("click", () => {
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+});
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+const navLinks =
+    document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+
+    navLinks.classList.toggle("active");
+
+});
+
+
+document
+    .querySelectorAll(".nav-links a")
+    .forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            navLinks.classList.remove("active");
+
+        });
+
+    });
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+const cards = [
+    ...document.querySelectorAll(".car-card")
+];
+
+let activeCategory = "all";
+
+
+/* =========================================================
+   SEARCH + FILTER
+========================================================= */
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const catalogCount =
+    document.getElementById("catalogCount");
+
+const emptyState =
+    document.getElementById("emptyState");
+
+
+function applyFilters(){
+
+    const search =
+        searchInput.value
+            .toLowerCase()
+            .trim();
+
+    let visible = 0;
+
+
+    cards.forEach(card => {
+
+        const name =
+            card.dataset.name.toLowerCase();
+
+        const brand =
+            card.dataset.brand.toLowerCase();
+
+        const categories =
+            card.dataset.category.toLowerCase();
+
+
+        const matchesSearch =
+            !search ||
+            name.includes(search) ||
+            brand.includes(search);
+
+
+        const matchesCategory =
+            activeCategory === "all" ||
+            categories.includes(activeCategory);
+
+
+        if(
+            matchesSearch &&
+            matchesCategory
+        ){
+
+            card.classList.remove("hidden");
+
+            visible++;
+
+        }else{
+
+            card.classList.add("hidden");
+
+        }
+
+    });
+
+
+    catalogCount.textContent =
+        `${visible} carro${visible === 1 ? "" : "s"} encontrado${visible === 1 ? "" : "s"}`;
+
+
+    if(visible === 0){
+
+        emptyState.classList.add("show");
+
+    }else{
+
+        emptyState.classList.remove("show");
+
+    }
+
+}
+
+
+document
+    .querySelectorAll(".filter")
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            document
+                .querySelectorAll(".filter")
+                .forEach(item =>
+                    item.classList.remove("active")
+                );
+
+
+            button.classList.add("active");
+
+            activeCategory =
+                button.dataset.filter;
+
+
+            applyFilters();
+
+        });
+
+    });
+
+
+searchInput.addEventListener(
+    "input",
+    applyFilters
+);
+
+
+/* =========================================================
+   SORT
+========================================================= */
+
+const sortSelect =
+    document.getElementById("sortSelect");
+
+const carsGrid =
+    document.getElementById("carsGrid");
+
+
+sortSelect.addEventListener("change", () => {
+
+    const value =
+        sortSelect.value;
+
+
+    const sorted =
+        [...cards].sort((a,b) => {
+
+            const priceA =
+                Number(a.dataset.price);
+
+            const priceB =
+                Number(b.dataset.price);
+
+            const yearA =
+                Number(a.dataset.year);
+
+            const yearB =
+                Number(b.dataset.year);
+
+            const powerA =
+                Number(
+                    a.dataset.power
+                        .replace(/[^\d]/g,"")
+                );
+
+            const powerB =
+                Number(
+                    b.dataset.power
+                        .replace(/[^\d]/g,"")
+                );
+
+
+            if(value === "price-low")
+                return priceA - priceB;
+
+            if(value === "price-high")
+                return priceB - priceA;
+
+            if(value === "year-old")
+                return yearA - yearB;
+
+            if(value === "year-new")
+                return yearB - yearA;
+
+            if(value === "power-high")
+                return powerB - powerA;
+
+            return 0;
+
+        });
+
+
+    sorted.forEach(card =>
+        carsGrid.appendChild(card)
+    );
+
+});
+
+
+/* =========================================================
+   FAVORITES
+========================================================= */
+
+let favorites =
+    JSON.parse(
+        localStorage.getItem(
+            "garageProjectFavorites"
+        ) || "[]"
+    );
+
+
+const favoriteCount =
+    document.getElementById("favoriteCount");
+
+
+function updateFavoriteCount(){
+
+    favoriteCount.textContent =
+        favorites.length;
+
+}
+
+
+function isFavorite(name){
+
+    return favorites.includes(name);
+
+}
+
+
+function saveFavorites(){
+
+    localStorage.setItem(
+        "garageProjectFavorites",
+        JSON.stringify(favorites)
+    );
+
+}
+
+
+function updateFavoriteButtons(){
+
+    cards.forEach(card => {
+
+        const button =
+            card.querySelector(".favorite-btn");
+
+        const name =
+            card.dataset.name;
+
+
+        if(isFavorite(name)){
+
+            button.classList.add("active");
+            button.textContent = "♥";
+
+        }else{
+
+            button.classList.remove("active");
+            button.textContent = "♡";
+
+        }
+
+    });
+
+}
+
+
+function toggleFavorite(card){
+
+    const name =
+        card.dataset.name;
+
+
+    if(isFavorite(name)){
+
+        favorites =
+            favorites.filter(
+                item => item !== name
+            );
+
+        showToast(
+            `${name} removido dos favoritos.`
+        );
+
+    }else{
+
+        favorites.push(name);
+
+        showToast(
+            `${name} adicionado aos favoritos.`
+        );
+
+    }
+
+
+    saveFavorites();
+
+    updateFavoriteCount();
+
+    updateFavoriteButtons();
+
+}
+
+
+cards.forEach(card => {
+
+    const favoriteButton =
+        card.querySelector(".favorite-btn");
+
+
+    favoriteButton.addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+            toggleFavorite(card);
+
+        }
+    );
+
+});
+
+
+updateFavoriteCount();
+updateFavoriteButtons();
+
+
+/* =========================================================
+   FAVORITES HEADER
+========================================================= */
+
+document
+    .getElementById("favoriteCounter")
+    .addEventListener("click", () => {
+
+        const favoriteCards =
+            cards.filter(card =>
+                isFavorite(card.dataset.name)
+            );
+
+
+        if(favoriteCards.length === 0){
+
+            showToast(
+                "Você ainda não possui favoritos."
+            );
+
+            return;
+
+        }
+
+
+        const first =
+            favoriteCards[0];
+
+        first.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+    });
+
+
+/* =========================================================
+   CAR MODAL
+========================================================= */
+
+const carModal =
+    document.getElementById("carModal");
+
+const closeModal =
+    document.getElementById("closeModal");
+
+const modalImage =
+    document.getElementById("modalImage");
+
+const modalName =
+    document.getElementById("modalName");
+
+const modalBrand =
+    document.getElementById("modalBrand");
+
+const modalYear =
+    document.getElementById("modalYear");
+
+const modalEngine =
+    document.getElementById("modalEngine");
+
+const modalPower =
+    document.getElementById("modalPower");
+
+const modalDrive =
+    document.getElementById("modalDrive");
+
+const modalDescription =
+    document.getElementById("modalDescription");
+
+const modalFavorite =
+    document.getElementById("modalFavorite");
+
+const modalBudget =
+    document.getElementById("modalBudget");
+
+
+let currentCard = null;
+
+
+function openCarModal(card){
+
+    currentCard = card;
+
+
+    modalImage.src =
+        card.dataset.image;
+
+    modalImage.alt =
+        card.dataset.name;
+
+    modalName.textContent =
+        card.dataset.name;
+
+    modalBrand.textContent =
+        card.dataset.brand;
+
+    modalYear.textContent =
+        card.dataset.year;
+
+    modalEngine.textContent =
+        card.dataset.engine;
+
+    modalPower.textContent =
+        card.dataset.power;
+
+    modalDrive.textContent =
+        card.dataset.drive;
+
+    modalDescription.textContent =
+        card.dataset.description;
+
+
+    modalFavorite.textContent =
+        isFavorite(card.dataset.name)
+            ? "♥ Remover favorito"
+            : "♥ Favoritar";
+
+
+    carModal.classList.add("active");
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+}
+
+
+cards.forEach(card => {
+
+    card
+        .querySelector(".details-btn")
+        .addEventListener("click", () => {
+
+            openCarModal(card);
+
+        });
+
+});
+
+
+function closeCarModal(){
+
+    carModal.classList.remove("active");
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+closeModal.addEventListener(
+    "click",
+    closeCarModal
+);
+
+
+carModal.addEventListener(
+    "click",
+    event => {
+
+        if(event.target === carModal){
+
+            closeCarModal();
+
+        }
+
+    }
+);
+
+
+modalFavorite.addEventListener(
+    "click",
+    () => {
+
+        if(!currentCard) return;
+
+        toggleFavorite(currentCard);
+
+        modalFavorite.textContent =
+            isFavorite(
+                currentCard.dataset.name
+            )
+                ? "♥ Remover favorito"
+                : "♥ Favoritar";
+
+    }
+);
+
+
+/* =========================================================
+   MODAL -> BUDGET
+========================================================= */
+
+modalBudget.addEventListener(
+    "click",
+    () => {
+
+        if(!currentCard) return;
+
+
+        const carPrice =
+            Number(
+                currentCard.dataset.price
+            );
+
+
+        carSelect.value =
+            String(carPrice);
+
+
+        closeCarModal();
+
+    }
+);
+
+
+/* =========================================================
+   COMPARE
+========================================================= */
+
+const compareInputs =
+    document.querySelectorAll(
+        ".compare-input"
+    );
+
+let compareCars = [];
+
+
+function updateComparison(){
+
+    compareCars =
+        cards.filter(card => {
+
+            const checkbox =
+                card.querySelector(
+                    ".compare-input"
+                );
+
+            return checkbox.checked;
+
+        });
+
+
+    if(compareCars.length > 2){
+
+        const latest =
+            compareCars[compareCars.length - 1];
+
+        latest.querySelector(
+            ".compare-input"
+        ).checked = false;
+
+        compareCars =
+            compareCars.slice(0,2);
+
+        showToast(
+            "Você pode comparar apenas dois carros."
+        );
+
+    }
+
+
+    renderComparison();
+
+}
+
+
+compareInputs.forEach(input => {
+
+    input.addEventListener(
+        "change",
+        updateComparison
+    );
+
+});
+
+
+function renderComparison(){
+
+    const empty =
+        document.getElementById(
+            "compareEmpty"
+        );
+
+    const table =
+        document.getElementById(
+            "compareTable"
+        );
+
+
+    if(compareCars.length < 2){
+
+        empty.style.display = "block";
+
+        table.classList.remove("show");
+
+        return;
+
+    }
+
+
+    empty.style.display = "none";
+
+    table.classList.add("show");
+
+
+    const a = compareCars[0];
+    const b = compareCars[1];
+
+
+    document.getElementById(
+        "compareCar1"
+    ).textContent = a.dataset.name;
+
+
+    document.getElementById(
+        "compareCar2"
+    ).textContent = b.dataset.name;
+
+
+    document.getElementById(
+        "compareBrand1"
+    ).textContent = a.dataset.brand;
+
+
+    document.getElementById(
+        "compareBrand2"
+    ).textContent = b.dataset.brand;
+
+
+    document.getElementById(
+        "compareYear1"
+    ).textContent = a.dataset.year;
+
+
+    document.getElementById(
+        "compareYear2"
+    ).textContent = b.dataset.year;
+
+
+    document.getElementById(
+        "compareEngine1"
+    ).textContent = a.dataset.engine;
+
+
+    document.getElementById(
+        "compareEngine2"
+    ).textContent = b.dataset.engine;
+
+
+    document.getElementById(
+        "comparePower1"
+    ).textContent = a.dataset.power;
+
+
+    document.getElementById(
+        "comparePower2"
+    ).textContent = b.dataset.power;
+
+
+    document.getElementById(
+        "compareDrive1"
+    ).textContent = a.dataset.drive;
+
+
+    document.getElementById(
+        "compareDrive2"
+    ).textContent = b.dataset.drive;
+
+
+    document.getElementById(
+        "comparePrice1"
+    ).textContent =
+        formatCurrency(
+            Number(a.dataset.price)
+        );
+
+
+    document.getElementById(
+        "comparePrice2"
+    ).textContent =
+        formatCurrency(
+            Number(b.dataset.price)
+        );
+
+}
+
+
+/* =========================================================
+   BUDGET
+========================================================= */
+
+const budgetForm =
+    document.getElementById(
+        "budgetForm"
+    );
+
+const carSelect =
+    document.getElementById(
+        "carSelect"
+    );
+
+const buildLevel =
+    document.getElementById(
+        "buildLevel"
+    );
+
+const wheels =
+    document.getElementById(
+        "wheels"
+    );
+
+const suspension =
+    document.getElementById(
+        "suspension"
+    );
+
+const brakes =
+    document.getElementById(
+        "brakes"
+    );
+
+const margin =
+    document.getElementById(
+        "margin"
+    );
+
+const marginValue =
+    document.getElementById(
+        "marginValue"
+    );
+
+const marginLabel =
+    document.getElementById(
+        "marginLabel"
+    );
+
+const budgetValue =
+    document.getElementById(
+        "budgetValue"
+    );
+
+const budgetProgress =
+    document.getElementById(
+        "budgetProgress"
+    );
+
+
+function formatCurrency(value){
+
+    return value.toLocaleString(
+        "pt-BR",
+        {
+            style:"currency",
+            currency:"BRL",
+            maximumFractionDigits:0
+        }
+    );
+
+}
+
+
+function calculateBudget(){
+
+    const base =
+        Number(carSelect.value);
+
+    const build =
+        Number(buildLevel.value);
+
+    const wheel =
+        Number(wheels.value);
+
+    const suspensionPrice =
+        Number(suspension.value);
+
+    const brakePrice =
+        Number(brakes.value);
+
+    const percentage =
+        Number(margin.value);
+
+
+    const subtotal =
+        base +
+        build +
+        wheel +
+        suspensionPrice +
+        brakePrice;
+
+
+    const total =
+        subtotal *
+        (1 + percentage / 100);
+
+
+    budgetValue.textContent =
+        formatCurrency(total);
+
+
+    marginValue.textContent =
+        `${percentage}%`;
+
+    marginLabel.textContent =
+        `${percentage}%`;
+
+
+    const progress =
+        Math.min(
+            100,
+            Math.round(
+                (total / 300000) * 100
+            )
+        );
+
+
+    budgetProgress.style.width =
+        `${progress}%`;
+
+}
+
+
+[
+    carSelect,
+    buildLevel,
+    wheels,
+    suspension,
+    brakes,
+    margin
+].forEach(element => {
+
+    element.addEventListener(
+        "change",
+        calculateBudget
+    );
+
+});
+
+
+margin.addEventListener(
+    "input",
+    calculateBudget
+);
+
+
+budgetForm.addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+        calculateBudget();
+
+        showToast(
+            "Projeto calculado com sucesso!"
+        );
+
+    }
+);
+
+
+calculateBudget();
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+document
+    .querySelectorAll(".faq-question")
+    .forEach(question => {
+
+        question.addEventListener(
+            "click",
+            () => {
+
+                const item =
+                    question.parentElement;
+
+
+                document
+                    .querySelectorAll(".faq-item")
+                    .forEach(other => {
+
+                        if(
+                            other !== item
+                        ){
+
+                            other.classList.remove(
+                                "active"
+                            );
+
+                        }
+
+                    });
+
+
+                item.classList.toggle(
+                    "active"
+                );
+
+
+                const symbol =
+                    question.querySelector(
+                        "span"
+                    );
+
+
+                symbol.textContent =
+                    item.classList.contains("active")
+                        ? "−"
+                        : "+";
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+const imageModal =
+    document.getElementById(
+        "imageModal"
+    );
+
+const largeImage =
+    document.getElementById(
+        "largeImage"
+    );
+
+const closeImageModal =
+    document.getElementById(
+        "closeImageModal"
+    );
+
+
+document
+    .querySelectorAll(".gallery-item")
+    .forEach(item => {
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                largeImage.src =
+                    item.dataset.image;
+
+                largeImage.alt =
+                    item
+                        .querySelector("img")
+                        .alt;
+
+
+                imageModal.classList.add(
+                    "active"
+                );
+
+                document.body.classList.add(
+                    "modal-open"
+                );
+
+            }
+        );
+
+    });
+
+
+function closeGalleryModal(){
+
+    imageModal.classList.remove(
+        "active"
+    );
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+closeImageModal.addEventListener(
+    "click",
+    closeGalleryModal
+);
+
+
+imageModal.addEventListener(
+    "click",
+    event => {
+
+        if(event.target === imageModal){
+
+            closeGalleryModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+const contactForm =
+    document.getElementById(
+        "contactForm"
+    );
+
+
+contactForm.addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+        const name =
+            document.getElementById(
+                "contactName"
+            ).value;
+
+
+        showToast(
+            `Obrigado, ${name}! Projeto recebido.`
+        );
+
+
+        contactForm.reset();
+
+    }
+);
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+const toast =
+    document.getElementById(
+        "toast"
+    );
+
+let toastTimer;
+
+
+function showToast(message){
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },3000);
+
+}
+
+
+/* =========================================================
+   REVEAL ON SCROLL
+========================================================= */
+
+const revealElements =
+    document.querySelectorAll(
+        ".reveal"
+    );
+
+
+const revealObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(
+                entry => {
+
+                    if(
+                        entry.isIntersecting
+                    ){
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            threshold:.1
+        }
+    );
+
+
+revealElements.forEach(
+    element =>
+        revealObserver.observe(
+            element
+        )
+);
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Escape"){
+
+            closeCarModal();
+
+            closeGalleryModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   IMAGE ERROR HANDLER
+========================================================= */
+
+document
+    .querySelectorAll("img")
+    .forEach(image => {
+
+        image.addEventListener(
+            "error",
+            () => {
+
+                image.style.opacity = ".3";
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   COPYRIGHT
+========================================================= */
+
+document.querySelector(
+    ".copyright"
+).innerHTML =
+    `© ${new Date().getFullYear()} Garage Project — Projeto demonstrativo.`;
+
+
+/* =========================================================
+   INITIAL
+========================================================= */
+
+applyFilters();
+
+</script>
+
+</body>
+</html>

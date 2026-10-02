@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brasileirão — Tabela</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f5f7;
+      color: #17202a;
+    }
+
+    header {
+      background: linear-gradient(135deg, #006437, #008c4a);
+      color: white;
+      padding: 35px 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .header-content h1 {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .header-content p {
+      opacity: 0.9;
+      font-size: 15px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 22px 25px;
+      border-bottom: 1px solid #e5e7e9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .card-header h2 {
+      font-size: 21px;
+    }
+
+    .season {
+      background: #e9f6ef;
+      color: #006437;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+
+    thead {
+      background: #f7f8f9;
+    }
+
+    th {
+      color: #687078;
+      font-size: 12px;
+      text-transform: uppercase;
+      padding: 15px 10px;
+      text-align: center;
+      border-bottom: 1px solid #e5e7e9;
+    }
+
+    th:nth-child(2) {
+      text-align: left;
+    }
+
+    td {
+      padding: 15px 10px;
+      text-align: center;
+      border-bottom: 1px solid #edf0f2;
+      font-size: 14px;
+    }
+
+    td:nth-child(2) {
+      text-align: left;
+      font-weight: bold;
+    }
+
+    tbody tr {
+      transition: background 0.2s;
+    }
+
+    tbody tr:hover {
+      background: #f7faf8;
+    }
+
+    .position {
+      width: 45px;
+      font-weight: bold;
+      color: #6c757d;
+    }
+
+    .team {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #e8ecef;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .points {
+      font-size: 16px;
+      color: #111;
+      font-weight: 800;
+    }
+
+    /* Cores das zonas */
+    .libertadores {
+      border-left: 5px solid #1677ff;
+    }
+
+    .pre-libertadores {
+      border-left: 5px solid #6f42c1;
+    }
+
+    .sulamericana {
+      border-left: 5px solid #00a86b;
+    }
+
+    .rebaixamento {
+      border-left: 5px solid #dc3545;
+    }
+
+    .legend {
+      padding: 20px 25px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      border-top: 1px solid #e5e7e9;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legend-color {
+      width: 13px;
+      height: 13px;
+      border-radius: 3px;
+    }
+
+    .blue {
+      background: #1677ff;
+    }
+
+    .purple {
+      background: #6f42c1;
+    }
+
+    .green {
+      background: #00a86b;
+    }
+
+    .red {
+      background: #dc3545;
+    }
+
+    footer {
+      text-align: center;
+      color: #7b8288;
+      font-size: 13px;
+      padding: 30px 20px;
+    }
+
+    @media (max-width: 600px) {
+      .header-content h1 {
+        font-size: 27px;
+      }
+
+      main {
+        margin-top: 20px;
+      }
+
+      .card-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-content">
+      <h1>🇧🇷 Brasileirão</h1>
+      <p>Classificação do Campeonato Brasileiro</p>
+    </div>
+  </header>
+
+  <main>
+
+    <div class="card">
+
+      <div class="card-header">
+        <h2>Tabela de Classificação</h2>
+        <span class="season">Temporada 2026</span>
+      </div>
+
+      <div class="table-container">
+
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Time</th>
+              <th>PTS</th>
+              <th>J</th>
+              <th>V</th>
+              <th>E</th>
+              <th>D</th>
+              <th>GP</th>
+              <th>GC</th>
+              <th>SG</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr class="libertadores">
+              <td class="position">1</td>
+              <td>
+                <div class="team">
+                  <span class="logo">FLA</span>
+                  Flamengo
+                </div>
+              </td>
+              <td class="points">42</td>
+              <td>20</td>
+              <td>13</td>
+              <td>3</td>
+              <td>4</td>
+              <td>39</td>
+              <td>18</td>
+              <td>+21</td>
+            </tr>
+
+            <tr class="libertadores">
+              <td class="position">2</td>
+              <td>
+                <div class="team">
+                  <span class="logo">PAL</span>
+                  Palmeiras
+                </div>
+              </td>
+              <td class="points">40</td>
+              <td>20</td>
+              <td>12</td>
+              <td>4</td>
+              <td>4</td>
+              <td>34</td>
+              <td>17</td>
+              <td>+17</td>
+            </tr>
+
+            <tr class="libertadores">
+              <td class="position">3</td>
+              <td>
+                <div class="team">
+                  <span class="logo">CAM</span>
+                  Atlético-MG
+                </div>
+              </td>
+              <td class="points">37</td>
+              <td>20</td>
+              <td>11</td>
+              <td>4</td>
+              <td>5</td>
+              <td>31</td>
+              <td>21</td>
+              <td>+10</td>
+            </tr>
+
+            <tr class="libertadores">
+              <td class="position">4</td>
+              <td>
+                <div class="team">
+                  <span class="logo">GRE</span>
+                  Grêmio
+                </div>
+              </td>
+              <td class="points">35</td>
+              <td>20</td>
+              <td>10</td>
+              <td>5</td>
+              <td>5</td>
+              <td>29</td>
+              <td>22</td>
+              <td>+7</td>
+            </tr>
+
+            <tr class="pre-libertadores">
+              <td class="position">5</td>
+              <td>
+                <div class="team">
+                  <span class="logo">BOT</span>
+                  Botafogo
+                </div>
+              </td>
+              <td class="points">33</td>
+              <td>20</td>
+              <td>9</td>
+              <td>6</td>
+              <td>5</td>
+              <td>28</td>
+              <td>23</td>
+              <td>+5</td>
+            </tr>
+
+            <tr class="pre-libertadores">
+              <td class="position">6</td>
+              <td>
+                <div class="team">
+                  <span class="logo">SAO</span>
+                  São Paulo
+                </div>
+              </td>
+              <td class="points">32</td>
+              <td>20</td>
+              <td>9</td>
+              <td>5</td>
+              <td>6</td>
+              <td>27</td>
+              <td>22</td>
+              <td>+5</td>
+            </tr>
+
+            <tr class="sulamericana">
+              <td class="position">7</td>
+              <td>
+                <div class="team">
+                  <span class="logo">INT</span>
+                  Internacional
+                </div>
+              </td>
+              <td class="points">30</td>
+              <td>20</td>
+              <td>8</td>
+              <td>6</td>
+              <td>6</td>
+              <td>25</td>
+              <td>23</td>
+              <td>+2</td>
+            </tr>
+
+            <tr class="sulamericana">
+              <td class="position">8</td>
+              <td>
+                <div class="team">
+                  <span class="logo">BAH</span>
+                  Bahia
+                </div>
+              </td>
+              <td class="points">29</td>
+              <td>20</td>
+              <td>8</td>
+              <td>5</td>
+              <td>7</td>
+              <td>24</td>
+              <td>22</td>
+              <td>+2</td>
+            </tr>
+
+            <tr>
+              <td class="position">9</td>
+              <td>
+                <div class="team">
+                  <span class="logo">FLU</span>
+                  Fluminense
+                </div>
+              </td>
+              <td class="points">28</td>
+              <td>20</td>
+              <td>8</td>
+              <td>4</td>
+              <td>8</td>
+              <td>23</td>
+              <td>24</td>
+              <td>-1</td>
+            </tr>
+
+            <tr>
+              <td class="position">10</td>
+              <td>
+                <div class="team">
+                  <span class="logo">CRU</span>
+                  Cruzeiro
+                </div>
+              </td>
+              <td class="points">27</td>
+              <td>20</td>
+              <td>7</td>
+              <td>6</td>
+              <td>7</td>
+              <td>22</td>
+              <td>23</td>
+              <td>-1</td>
+            </tr>
+
+            <tr>
+              <td class="position">11</td>
+              <td>
+                <div class="team">
+                  <span class="logo">VAS</span>
+                  Vasco
+                </div>
+              </td>
+              <td class="points">26</td>
+              <td>20</td>
+              <td>7</td>
+              <td>5</td>
+              <td>8</td>
+              <td>24</td>
+              <td>27</td>
+              <td>-3</td>
+            </tr>
+
+            <tr>
+              <td class="position">12</td>
+              <td>
+                <div class="team">
+                  <span class="logo">SAN</span>
+                  Santos
+                </div>
+              </td>
+              <td class="points">25</td>
+              <td>20</td>
+              <td>7</td>
+              <td>4</td>
+              <td>9</td>
+              <td>21</td>
+              <td>26</td>
+              <td>-5</td>
+            </tr>
+
+            <tr>
+              <td class="position">13</td>
+              <td>
+                <div class="team">
+                  <span class="logo">COR</span>
+                  Corinthians
+                </div>
+              </td>
+              <td class="points">24</td>
+              <td>20</td>
+              <td>6</td>
+              <td>6</td>
+              <td>8</td>
+              <td>20</td>
+              <td>25</td>
+              <td>-5</td>
+            </tr>
+
+            <tr>
+              <td class="position">14</td>
+              <td>
+                <div class="team">
+                  <span class="logo">CEA</span>
+                  Ceará
+                </div>
+              </td>
+              <td class="points">23</td>
+              <td>20</td>
+              <td>6</td>
+              <td>5</td>
+              <td>9</td>
+              <td>19</td>
+              <td>25</td>
+              <td>-6</td>
+            </tr>
+
+            <tr>
+              <td class="position">15</td>
+              <td>
+                <div class="team">
+                  <span class="logo">FOR</span>
+                  Fortaleza
+                </div>
+              </td>
+              <td class="points">22</td>
+              <td>20</td>
+              <td>5</td>
+              <td>7</td>
+              <td>8</td>
+              <td>20</td>
+              <td>26</td>
+              <td>-6</td>
+            </tr>
+
+            <tr>
+              <td class="position">16</td>
+              <td>
+                <div class="team">
+                  <span class="logo">CAP</span>
+                  Athletico-PR
+                </div>
+              </td>
+              <td class="points">21</td>
+              <td>20</td>
+              <td>5</td>
+              <td>6</td>
+              <td>9</td>
+              <td>18</td>
+              <td>25</td>
+              <td>-7</td>
+            </tr>
+
+            <tr class="rebaixamento">
+              <td class="position">17</td>
+              <td>
+                <div class="team">
+                  <span class="logo">VIT</span>
+                  Vitória
+                </div>
+              </td>
+              <td class="points">20</td>
+              <td>20</td>
+              <td>4</td>
+              <td>8</td>
+              <td>8</td>
+              <td>18</td>
+              <td>27</td>
+              <td>-9</td>
+            </tr>
+
+            <tr class="rebaixamento">
+              <td class="position">18</td>
+              <td>
+                <div class="team">
+                  <span class="logo">JUV</span>
+                  Juventude
+                </div>
+              </td>
+              <td class="points">18</td>
+              <td>20</td>
+              <td>4</td>
+              <td>6</td>
+              <td>10</td>
+              <td>17</td>
+              <td>29</td>
+              <td>-12</td>
+            </tr>
+
+            <tr class="rebaixamento">
+              <td class="position">19</td>
+              <td>
+                <div class="team">
+                  <span class="logo">SPT</span>
+                  Sport
+                </div>
+              </td>
+              <td class="points">16</td>
+              <td>20</td>
+              <td>3</td>
+              <td>7</td>
+              <td>10</td>
+              <td>16</td>
+              <td>30</td>
+              <td>-14</td>
+            </tr>
+
+            <tr class="rebaixamento">
+              <td class="position">20</td>
+              <td>
+                <div class="team">
+                  <span class="logo">REM</span>
+                  Remo
+                </div>
+              </td>
+              <td class="points">14</td>
+              <td>20</td>
+              <td>3</td>
+              <td>5</td>
+              <td>12</td>
+              <td>14</td>
+              <td>32</td>
+              <td>-18</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <span class="legend-color blue"></span>
+          Libertadores
+        </div>
+
+        <div class="legend-item">
+          <span class="legend-color purple"></span>
+          Pré-Libertadores
+        </div>
+
+        <div class="legend-item">
+          <span class="legend-color green"></span>
+          Sul-Americana
+        </div>
+
+        <div class="legend-item">
+          <span class="legend-color red"></span>
+          Rebaixamento
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+    Brasileirão • Tabela de classificação
+  </footer>
+
+</body>
+</html>

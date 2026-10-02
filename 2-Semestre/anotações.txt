@@ -154,3 +154,21 @@ Aula(01-09-2026):
         - docker run --name meuWeb -p 9090:80 -d nginx -> coloca ativo na web o servidor com porta aberta
     https://hub.docker.com/
     https://app.docker.com/
+Aula(15-09-2026):
+    dockerfile commands:
+        FROM 
+        WORKFILE
+        COPY 
+        RUN 
+        EXPOSE
+        CMD 
+Aula(29-09-2026):
+    github actions:
+        Workflow (.yml)
+        Trigger (on:)
+        Job
+        Step
+        fazendo um CI simples:
+            ir para um repositorio e dentro denle apertar em actions do lado de pullrequets
+            depois pesquisar 'simple workflow' e vai abrir o pipeline
+            configure o pipeline e comita ele
